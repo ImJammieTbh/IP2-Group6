@@ -60,4 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71874c2d543f624a83ab5b34ade472e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  yPadding: 1
   debugCube: {fileID: 4156658717715895741, guid: e61bcf04f3c558947aee2a187e1095aa, type: 3}
+  spawnTimerMax: 3
+  switchChance: 0.7

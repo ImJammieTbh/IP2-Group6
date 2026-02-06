@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using Random = System.Random;
 
 public class BirdSpawn : MonoBehaviour
 {
@@ -9,8 +11,21 @@ public class BirdSpawn : MonoBehaviour
 
     private Vector3 _spawnLeft;
     private Vector3 _spawnRight;
+    private Vector3 _lastSpawnPos;
 
-    public GameObject debugCube;
+    private float _minY;
+    private float _maxY;
+    
+    [Tooltip("Padding from the top and bottom of the spawn area.")]
+    public float yPadding;
+    
+    public GameObject debugObject;
+
+    private float _spawnTimer;
+    public float spawnTimerMax;
+
+    [Tooltip("Chance from 0 - 1 that the spawn side will swap on next spawn.")]
+    [Range(0f, 1f)] public float switchChance;
 
     private void Awake()
     {
@@ -18,42 +33,44 @@ public class BirdSpawn : MonoBehaviour
 
         _spawnLeft = _box.WorldLeft;
         _spawnRight = _box.WorldRight;
+
+        _maxY = _box.WorldTop.y - yPadding;
+        _minY = _box.WorldBottom.y + yPadding;
     }
 
-    private void Start()
+    private void FixedUpdate()
     {
-        SpawnBird(_spawnLeft);
-        SpawnBird(_spawnRight);
+        _spawnTimer += Time.deltaTime;
+
+        if (_spawnTimer >= spawnTimerMax)
+        {
+            SpawnBird(GetSpawnPos());
+            _spawnTimer = 0f;
+        }
     }
 
     public void SpawnBird(Vector3 spawnPos)
     {
-        GameObject bird = Instantiate(debugCube, spawnPos, Quaternion.identity);
+        GameObject bird = Instantiate(debugObject, spawnPos, Quaternion.identity);
         bird.gameObject.name = $"Bird{spawnPos}";
-        //StartCoroutine(MoveBird(spawnPos, bird));
+        bird.transform.SetParent(this.transform);
     }
 
-    public IEnumerator MoveBird(Vector3 spawnPos, GameObject bird)
+    public Vector3 GetSpawnPos()
     {
-        bool moving = true;
-        while (moving)
+        if (_lastSpawnPos == null)
         {
-            Vector3 pos = bird.transform.position;
-            if (spawnPos != _spawnRight)
-            {
-                pos.x = Mathf.Lerp(pos.x, _spawnRight.x, Time.deltaTime * 1f);
-                bird.transform.position = pos;
-            }
-            else if (spawnPos != _spawnLeft)
-            {
-                pos.x = Mathf.Lerp(pos.x, _spawnLeft.x, Time.deltaTime * 1f);
-                bird.transform.position = pos;
-            }
-            else
-            {
-                moving = false;
-            }
+            _lastSpawnPos = UnityEngine.Random.Range(0f, 1f) < 0.5f ? _spawnLeft : _spawnRight;
+            return _lastSpawnPos;
         }
-        yield return null;
+
+        //chooses the side it spawns on
+        if (UnityEngine.Random.value < switchChance)
+        {
+            _lastSpawnPos.x = _lastSpawnPos.x == _spawnLeft.x ? _spawnRight.x : _spawnLeft.x;
+        }
+        
+        _lastSpawnPos.y = UnityEngine.Random.Range(_minY, _maxY);
+        return _lastSpawnPos;
     }
 }
