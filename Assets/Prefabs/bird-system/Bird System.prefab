@@ -61,6 +61,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yPadding: 1
-  debugCube: {fileID: 4156658717715895741, guid: e61bcf04f3c558947aee2a187e1095aa, type: 3}
+  debugObject: {fileID: 4156658717715895741, guid: e61bcf04f3c558947aee2a187e1095aa, type: 3}
   spawnTimerMax: 3
   switchChance: 0.7
+  minYDistance: 1.5
+  forcedYOffset: 2
