@@ -26,17 +26,17 @@ public class StartMenuController : MonoBehaviour
 
     [Header("Volume")]
     public GameObject volume; // All the volume UI elements
-    public static Slider masterSlider; //assume this will allow the slider's value to carry over between scenes
-    public static Slider sfxSlider;
-    public static Slider birdsSlider;
-    public static Slider musicSlider;
-    public static Slider backgroundSlider;
+    public Slider masterSlider; //assume this will allow the slider's value to carry over between scenes
+    public Slider sfxSlider;
+    public Slider birdsSlider;
+    public Slider musicSlider;
+    public Slider backgroundSlider;
 
 
     [Header("Settings")]
     public GameObject settings; // All the misc settings UI elements
-    public static Slider fovSlider;
-    public static Slider sensitivitySlider;
+    public Slider fovSlider;
+    public Slider sensitivitySlider;
 
 
     //CONTROLS if add key bindings or controller manual in start manual

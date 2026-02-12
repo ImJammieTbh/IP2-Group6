@@ -6647,18 +6647,24 @@ MonoBehaviour:
   gameTitle: {fileID: 1649960645}
   fovValue: {fileID: 2105393483}
   sensitivityValue: {fileID: 1418661780}
-  masterValue: {fileID: 0}
-  sfxValue: {fileID: 0}
-  birdsValue: {fileID: 0}
-  musicValue: {fileID: 0}
-  backgroundValue: {fileID: 0}
+  masterValue: {fileID: 978324587}
+  sfxValue: {fileID: 1160838877}
+  birdsValue: {fileID: 2055496676}
+  musicValue: {fileID: 811124220}
+  backgroundValue: {fileID: 568034200}
   volume: {fileID: 1537749781}
+  masterSlider: {fileID: 1185749291}
+  sfxSlider: {fileID: 1699468504}
+  birdsSlider: {fileID: 1489202977}
+  musicSlider: {fileID: 39172641}
+  backgroundSlider: {fileID: 85348056}
   settings: {fileID: 1283094663}
+  fovSlider: {fileID: 1534878902}
+  sensitivitySlider: {fileID: 1982387908}
   startButton: {fileID: 1378931908}
   settingsButton: {fileID: 634875991}
   quitButton: {fileID: 1029171220}
   backButton: {fileID: 1551138147}
-  e: 0
 --- !u!1 &1958031344
 GameObject:
   m_ObjectHideFlags: 0
