@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 10, y: 5, z: 1}
-  gizmoColor: {r: 0, g: 1, b: 0, a: 0.8}
+  gizmoColor: {r: 0, g: 1, b: 0, a: 1}
   showOnlyWhenSelected: 0
 --- !u!114 &4064345275137061263
 MonoBehaviour:
@@ -60,9 +60,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71874c2d543f624a83ab5b34ade472e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yPadding: 1
-  debugObject: {fileID: 5838005586309543983, guid: e2157830b34bd554b9d9fc8c2ff030cd, type: 3}
   spawnTimerMax: 3
-  switchChance: 0.7
+  sideSwitchChance: 0.7
+  yPadding: 1
   minYDistance: 1.5
   forcedYOffset: 2
+  currentBiome: 1
+  spawnTable: {fileID: 11400000, guid: 977fb98172aaaca46817da56c719b218, type: 2}
+  isNight: 0

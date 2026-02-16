@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using bird_system;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = System.Random;
@@ -17,24 +18,28 @@ public class BirdSpawn : MonoBehaviour
     private float _minY;
     private float _maxY;
     
-    [Tooltip("Padding from the top and bottom of the spawn area.")]
-    public float yPadding;
-    
-    public GameObject debugObject;
 
     private float _spawnTimer;
+    [Tooltip("Time in seconds between spawning of birds.")]
     public float spawnTimerMax;
 
     [Tooltip("Chance from 0 - 1 that the spawn side will swap on next spawn.")]
-    [Range(0f, 1f)] public float switchChance;
+    [Range(0f, 1f)] public float sideSwitchChance;
     
+    [Header("Y-Axis Configuration")]
+    [Tooltip("Padding from the top and bottom of the spawn area.")]
+    public float yPadding;
     [Tooltip("Minimum allowed distance between consecutive Y spawns.")]
     public float minYDistance = 1.5f;
-
-    [Tooltip("Forced offset if spawn is too close.")]
+    [Tooltip("Forced Y axis offset if spawn is too close.")]
     public float forcedYOffset = 2f;
 
     private bool _hasSpawnedBefore = false;
+    
+    [Header("Conditions")]
+    [SerializeField]private BirdData.Biome currentBiome;
+    [SerializeField]private BirdSpawnTable spawnTable;
+    [SerializeField]private bool isNight;
 
 
     private void Awake()
@@ -61,9 +66,16 @@ public class BirdSpawn : MonoBehaviour
 
     public void SpawnBird(Vector3 spawnPos)
     {
-        GameObject bird = Instantiate(debugObject, spawnPos, Quaternion.identity);
-        bird.gameObject.name = $"Bird{spawnPos}";
-        bird.transform.SetParent(this.transform);
+        BirdData data = spawnTable.GetRandomBird(currentBiome, isNight);
+        if (data == null) return;
+        
+        GameObject birdObj = Instantiate(data.prefab, spawnPos, Quaternion.identity);
+        Bird bird = birdObj.GetComponent<Bird>();
+        
+        bird.Initialize(data);
+        bird.leftSpawn = _spawnLeft.x;
+        bird.rightSpawn = _spawnRight.x;
+        birdObj.transform.SetParent(transform);
     }
 
     public Vector3 GetSpawnPos()
@@ -78,7 +90,7 @@ public class BirdSpawn : MonoBehaviour
         }
 
         //Decide whether to switch sides on next spawn
-        if (UnityEngine.Random.value < switchChance)
+        if (UnityEngine.Random.value < sideSwitchChance)
         {
             _lastSpawnPos.x = _lastSpawnPos.x == _spawnLeft.x ? _spawnRight.x : _spawnLeft.x;
         }

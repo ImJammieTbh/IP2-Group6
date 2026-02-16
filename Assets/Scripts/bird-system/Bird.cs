@@ -10,11 +10,21 @@ public class Bird : MonoBehaviour
     
     public SpriteRenderer spriteRenderer;
 
-    private bool _spawnedLeft;
+    [SerializeField] bool _spawnedLeft;
+
+    public float leftSpawn;
+    public float rightSpawn;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    public void Initialize(BirdData data)
+    {
+        birdSpeed = data.speed;
+        birdName = data.birdName;
+        print($"Initialized Bird Data {birdName}");
     }
 
     private void Start()
@@ -34,15 +44,25 @@ public class Bird : MonoBehaviour
         }
     }
 
-    private void FlyTo()
+    private void Update()
     {
-        
+        MoveAcross(_spawnedLeft);
+
+        if (transform.position.x > rightSpawn + 1 || transform.position.x < leftSpawn - 1)
+        {
+            Destroy(gameObject);
+        }
     }
 
-    private IEnumerable FlyToCoroutine()
+    private void MoveAcross(bool left)
     {
-        
-        
-        yield return null;
+        if (!left)
+        {
+            transform.Translate(Vector3.left * (Time.deltaTime * birdSpeed));
+        }
+        else
+        {
+            transform.Translate(Vector3.right * (Time.deltaTime * birdSpeed));
+        }
     }
 }

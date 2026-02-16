@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 326bf79068ae456a9ef99042e3c3c297, type: 3}
+  m_Name: Bird Spawn Table
+  m_EditorClassIdentifier: 
+  birds:
+  - {fileID: 11400000, guid: 9fb8a439f77875e42b270bbc595ef4c6, type: 2}
+  - {fileID: 11400000, guid: 438a21e5a215d4a46a6951a3548f878d, type: 2}
+  - {fileID: 11400000, guid: 5963be51508da0b4a8e6b36cbe4fad5f, type: 2}
+  - {fileID: 11400000, guid: 54f2645847c34bf46951981aa1773d97, type: 2}
