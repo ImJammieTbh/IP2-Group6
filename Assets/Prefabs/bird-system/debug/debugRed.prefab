@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8603891408345985914}
   m_Layer: 0
   m_Name: debugRed
-  m_TagString: Untagged
+  m_TagString: Bird
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,10 +51,10 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.15741286, y: 0.16117996, z: 0.07142916}
+  m_Center: {x: 0.0036135465, y: 0.0022918582, z: 0.014068291}
 --- !u!212 &8903750693113791104
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -126,3 +126,5 @@ MonoBehaviour:
   birdSpeed: 0
   spriteRenderer: {fileID: 0}
   _spawnedLeft: 0
+  leftSpawn: 0
+  rightSpawn: 0

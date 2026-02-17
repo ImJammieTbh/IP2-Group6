@@ -97,7 +97,7 @@ public class CameraLag : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, maxDistance))
             {
-                if (hit.collider.CompareTag("Birb"))
+                if (hit.collider.CompareTag("Bird"))
                 {
                     print("I miss my wife"); // future voiceline mechanic? very important story telling dialogue.
                     StartCoroutine(Ejector.TakePhoto());
