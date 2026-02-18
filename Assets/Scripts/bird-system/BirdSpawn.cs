@@ -70,9 +70,10 @@ public class BirdSpawn : MonoBehaviour
         GameObject birdObj = Instantiate(data.prefab, spawnPos, Quaternion.identity);
         BirdController birdController = birdObj.GetComponent<BirdController>();
         
+        CreateBirdID(birdController, data);
         birdController.Initialize(data);
-        birdController.leftSpawn = _spawnLeft.x;
-        birdController.rightSpawn = _spawnRight.x;
+        birdController.leftSpawn = _spawnLeft;
+        birdController.rightSpawn = _spawnRight;
         birdObj.transform.SetParent(transform);
     }
 
@@ -115,5 +116,11 @@ public class BirdSpawn : MonoBehaviour
         _lastSpawnPos.y = newY;
 
         return _lastSpawnPos;
+    }
+
+    private void CreateBirdID(BirdController bC, BirdData data)
+    {
+        int randomIdNum = UnityEngine.Random.Range(100, 1000);
+        bC.birdID = $"{data.birdID}{randomIdNum}";
     }
 }
