@@ -26,13 +26,6 @@ public class BirdSpawn : MonoBehaviour
     [Tooltip("Chance from 0 - 1 that the spawn side will swap on next spawn.")]
     [Range(0f, 1f)] public float sideSwitchChance;
     
-    [Header("Y-Axis Configuration")]
-    [Tooltip("Padding from the top and bottom of the spawn area.")]
-    public float yPadding;
-    [Tooltip("Minimum allowed distance between consecutive Y spawns.")]
-    public float minYDistance = 1.5f;
-    [Tooltip("Forced Y axis offset if spawn is too close.")]
-    public float forcedYOffset = 2f;
 
     private bool _hasSpawnedBefore = false;
     
@@ -41,6 +34,13 @@ public class BirdSpawn : MonoBehaviour
     [SerializeField]private BirdSpawnTable spawnTable;
     [SerializeField]private bool isNight;
 
+    
+    [HideInInspector]
+    [Tooltip("Padding from the top and bottom of the spawn area.")] public float yPadding;
+    [HideInInspector]
+    [Tooltip("Minimum allowed distance between consecutive Y spawns.")] public float minYDistance = 1.5f;
+    [HideInInspector]
+    [Tooltip("Forced Y axis offset if spawn is too close.")] public float forcedYOffset = 2f;
 
     private void Awake()
     {

@@ -1,11 +1,14 @@
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
+using UnityEditor.TerrainTools;
 using UnityEngine;
 
 [CustomEditor(typeof(BoundsBox))]
 public class BoundsBoxEditor : Editor
 {
     private BoxBoundsHandle _boundsHandle = new BoxBoundsHandle();
+
+    private bool BoxFoldout = true;
 
     private void OnSceneGUI()
     {
