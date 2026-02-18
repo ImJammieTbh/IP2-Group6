@@ -17,6 +17,6 @@ MonoBehaviour:
   birdID: 3
   prefab: {fileID: 5838005586309543983, guid: e2157830b34bd554b9d9fc8c2ff030cd, type: 3}
   spawnWeight: 50
-  speed: 2
+  speed: 1
   biome: 1
   isNightOnly: 0

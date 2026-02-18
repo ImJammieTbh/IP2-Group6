@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 43137666235384450}
+  - component: {fileID: -7137374498459657833}
   - component: {fileID: 3363944716710918137}
   - component: {fileID: 8603891408345985914}
-  - component: {fileID: -7137374498459657833}
+  - component: {fileID: 6591617730802253276}
   m_Layer: 0
   m_Name: debugGreen
   m_TagString: Bird
@@ -34,45 +35,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3363944716710918137
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4156658717715895741}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.15741286, y: 0.16117996, z: 0.07142916}
-  m_Center: {x: 0.0036135465, y: 0.0022918582, z: 0.014068291}
---- !u!114 &8603891408345985914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4156658717715895741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ee01e1d715e0d64e93bbb7c9e6122b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  birdName: 
-  birdSpeed: 0
-  spriteRenderer: {fileID: 0}
-  _spawnedLeft: 0
-  leftSpawn: 0
-  rightSpawn: 0
 --- !u!212 &-7137374498459657833
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -128,3 +90,57 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!65 &3363944716710918137
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4156658717715895741}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.15741286, y: 0.16117996, z: 0.07142916}
+  m_Center: {x: 0.0036135465, y: 0.0022918582, z: 0.014068291}
+--- !u!114 &8603891408345985914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4156658717715895741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee01e1d715e0d64e93bbb7c9e6122b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  birdName: 
+  birdSpeed: 0
+  spriteRenderer: {fileID: 0}
+  _hasLanded: 0
+  leftSpawn: {x: 0, y: 0, z: 0}
+  rightSpawn: {x: 0, y: 0, z: 0}
+  landingGroups: []
+--- !u!114 &6591617730802253276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4156658717715895741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f0d782e5580daa49b6db9bf076a9d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSpot: {fileID: 0}
+  chanceToLand: 0

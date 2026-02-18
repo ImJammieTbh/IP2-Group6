@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using bird_system;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using Random = System.Random;
 
 [RequireComponent(typeof(BoundsBox))]
@@ -18,6 +19,7 @@ public class BirdSpawn : MonoBehaviour
     private float _minY;
     private float _maxY;
     
+    private bool _hasSpawnedBefore = false;
 
     private float _spawnTimer;
     [Tooltip("Time in seconds between spawning of birds.")]
@@ -26,21 +28,17 @@ public class BirdSpawn : MonoBehaviour
     [Tooltip("Chance from 0 - 1 that the spawn side will swap on next spawn.")]
     [Range(0f, 1f)] public float sideSwitchChance;
     
-    [Header("Y-Axis Configuration")]
-    [Tooltip("Padding from the top and bottom of the spawn area.")]
-    public float yPadding;
-    [Tooltip("Minimum allowed distance between consecutive Y spawns.")]
-    public float minYDistance = 1.5f;
-    [Tooltip("Forced Y axis offset if spawn is too close.")]
-    public float forcedYOffset = 2f;
-
-    private bool _hasSpawnedBefore = false;
-    
     [Header("Conditions")]
     [SerializeField]private BirdData.Biome currentBiome;
     [SerializeField]private BirdSpawnTable spawnTable;
     [SerializeField]private bool isNight;
-
+    
+    [HideInInspector]
+    [Tooltip("Padding from the top and bottom of the spawn area.")] public float yPadding;
+    [HideInInspector]
+    [Tooltip("Minimum allowed distance between consecutive Y spawns.")] public float minYDistance = 1.5f;
+    [HideInInspector]
+    [Tooltip("Forced Y axis offset if spawn is too close.")] public float forcedYOffset = 2f;
 
     private void Awake()
     {
@@ -70,11 +68,12 @@ public class BirdSpawn : MonoBehaviour
         if (data == null) return;
         
         GameObject birdObj = Instantiate(data.prefab, spawnPos, Quaternion.identity);
-        Bird bird = birdObj.GetComponent<Bird>();
+        BirdController birdController = birdObj.GetComponent<BirdController>();
         
-        bird.Initialize(data);
-        bird.leftSpawn = _spawnLeft.x;
-        bird.rightSpawn = _spawnRight.x;
+        CreateBirdID(birdController, data);
+        birdController.Initialize(data);
+        birdController.leftSpawn = _spawnLeft;
+        birdController.rightSpawn = _spawnRight;
         birdObj.transform.SetParent(transform);
     }
 
@@ -117,5 +116,11 @@ public class BirdSpawn : MonoBehaviour
         _lastSpawnPos.y = newY;
 
         return _lastSpawnPos;
+    }
+
+    private void CreateBirdID(BirdController bC, BirdData data)
+    {
+        int randomIdNum = UnityEngine.Random.Range(100, 1000);
+        bC.birdID = $"{data.birdID}{randomIdNum}";
     }
 }
