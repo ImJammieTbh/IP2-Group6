@@ -3,7 +3,7 @@ using System.Collections;
 using System.Net.Http.Headers;
 using UnityEngine;
 
-public class Bird : MonoBehaviour
+public class BirdController : MonoBehaviour
 {
     public string birdName;
     public float birdSpeed;
@@ -25,23 +25,7 @@ public class Bird : MonoBehaviour
         birdSpeed = data.speed;
         birdName = data.birdName;
         print($"Initialized Bird Data {birdName}");
-    }
-
-    private void Start()
-    {
-        //Swaps the orientation of the sprite based on where it spawned
-        switch (transform.position.x)
-        {
-            case < 0:
-                spriteRenderer.flipX = false;
-                _spawnedLeft = true;
-                break;
-            
-            case > 0:
-                spriteRenderer.flipX = true;
-                _spawnedLeft = false;
-                break;
-        }
+        FlipSprite(transform.position.x);
     }
 
     private void Update()
@@ -54,7 +38,7 @@ public class Bird : MonoBehaviour
         }
     }
 
-    private void MoveAcross(bool left)
+    private void MoveAcross(bool left) //basic movement to opposite sides to allow for Demo [ BASIC SIDE TO SIDE ]
     {
         if (!left)
         {
@@ -63,6 +47,22 @@ public class Bird : MonoBehaviour
         else
         {
             transform.Translate(Vector3.right * (Time.deltaTime * birdSpeed));
+        }
+    }
+    
+    private void FlipSprite(float xPos) //Swaps the orientation of the sprite based on which side it spawned
+    {
+        switch (xPos)
+        {
+            case < 0:
+                spriteRenderer.flipX = false;
+                _spawnedLeft = true;
+                break;
+            
+            case > 0:
+                spriteRenderer.flipX = true;
+                _spawnedLeft = false;
+                break;
         }
     }
 }
