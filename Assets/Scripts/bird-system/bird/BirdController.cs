@@ -12,6 +12,9 @@ public class BirdController : MonoBehaviour
     public string birdID;
     
     public SpriteRenderer spriteRenderer;
+    public Animator animator;
+    
+    public bool isMoving;
 
     bool _spawnedLeft;
 
@@ -19,12 +22,16 @@ public class BirdController : MonoBehaviour
 
     [HideInInspector] public Vector3 leftSpawn, rightSpawn;
 
+    private Sprite _birdSit;
+    private Sprite _birdFly;
+    private BirdData _birdData;
     private BirdBrain _brain;
     public List<LandingSpotGroup> landingGroups = new List<LandingSpotGroup>();
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         _brain = GetComponent<BirdBrain>();
     }
 
@@ -32,6 +39,9 @@ public class BirdController : MonoBehaviour
     {
         birdSpeed = data.speed;
         birdName = data.birdName;
+        _birdFly = spriteRenderer.sprite;
+        _birdSit = data.birdSitSprite;
+        _birdData = data;
         gameObject.name = $"{birdName} | ID: {birdID}";
         print($"Initialized Bird Data {birdName}");
         FlipSprite(transform.position.x);
@@ -79,7 +89,7 @@ public class BirdController : MonoBehaviour
         {
             if (!_hasLanded && _brain.WillLand())
             {
-                var landSpot = _brain.ChooseNextSpot(landingGroups, birdID);
+                var landSpot = _brain.ChooseNextSpot(landingGroups, birdID, _birdData.allowedLandingTypes);
                 if (landSpot == null)
                 {
                     Debug.Log($"Bird: {birdID} wanted to land but there were no spots.");
@@ -89,11 +99,16 @@ public class BirdController : MonoBehaviour
                 yield return StartCoroutine(FlyToCoroutine(landSpot.transform.position, birdSpeed));
                 
                 _hasLanded = true;
-                
+                isMoving = false;
+
+                animator.enabled = false;
+                SpriteChange();
                 yield return new WaitForSeconds(1f);
             }
             else
             {
+                isMoving = true;
+                animator.enabled = true;
                 if (_brain.currentSpot != null)
                 {
                     _brain.currentSpot.Release();
@@ -111,6 +126,7 @@ public class BirdController : MonoBehaviour
                     //Fly off to the left, beyond spawn point to cause despawn
                     target = leftSpawn + Vector3.left * 2f;
                 }
+                SpriteChange();
                 yield return FlyToCoroutine(target, birdSpeed);
                 
                 DespawnBird();
@@ -126,5 +142,20 @@ public class BirdController : MonoBehaviour
         yield return new WaitForSeconds(0.005f);
         Transform parent = transform.parent;
         landingGroups.AddRange(parent.GetComponentsInChildren<LandingSpotGroup>());
+    }
+
+    public void SpriteChange()
+    {
+        if (_birdSit != null)
+        {
+            if (isMoving)
+            {
+                spriteRenderer.sprite = _birdFly;
+            }
+            else
+            {
+                spriteRenderer.sprite = _birdSit;
+            }
+        }
     }
 }

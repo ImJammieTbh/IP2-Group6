@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class LandingSpotGroup : MonoBehaviour
 {
+    public enum LandingTypes
+    {
+        Land,
+        Water,
+        Tree
+    }
+    
     public bool isFull;
+    public LandingTypes landingType;
     
     public List<LandingSpot> landingSpots = new List<LandingSpot>();
     
