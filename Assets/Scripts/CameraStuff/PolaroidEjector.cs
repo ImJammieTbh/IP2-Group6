@@ -8,6 +8,7 @@ public class PolaroidEjector : MonoBehaviour
     public AudioSource ejectSound;
     public GameObject polaroidPrefab; // world or UI version
     public Transform ejectPoint;
+    public Transform CameraHolder;
 
     public PhotoCapture capture;
     public PolaroidRenderer render;
@@ -29,6 +30,10 @@ public class PolaroidEjector : MonoBehaviour
 
         GameObject print = Instantiate(polaroidPrefab, ejectPoint.position, ejectPoint.rotation); // this spawns in the polaroid photo
         print.GetComponentInChildren<SpriteRenderer>().sprite = polaroid;
+
+        var behaviour = print.GetComponent<PolaroidBehaviour>();
+        behaviour.followTarget = ejectPoint;
+
 
         yield return new WaitForSeconds(0.1f); // fades back in after a bit
         // viewfinderBlackout.alpha = 0f;

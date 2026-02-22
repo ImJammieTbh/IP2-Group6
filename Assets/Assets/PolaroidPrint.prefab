@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5474797718395473904}
   - component: {fileID: 7881275654706221411}
+  - component: {fileID: -1625291725623878199}
   m_Layer: 0
   m_Name: PolaroidPrint
   m_TagString: Untagged
@@ -87,3 +88,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-1625291725623878199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624587185463249378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 267c4f1d7f8a9b04f93b59ce7c6020da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followTarget: {fileID: 0}
+  followLag: 10
+  ejectDistance: 0.3
+  ejectTime: 0.2
+  holdTime: 1
+  fallDistance: 1
+  fallTime: 0.6
