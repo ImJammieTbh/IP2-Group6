@@ -8,8 +8,6 @@ public class BoundsBoxEditor : Editor
 {
     private BoxBoundsHandle _boundsHandle = new BoxBoundsHandle();
 
-    private bool BoxFoldout = true;
-
     private void OnSceneGUI()
     {
         BoundsBox box = (BoundsBox)target;

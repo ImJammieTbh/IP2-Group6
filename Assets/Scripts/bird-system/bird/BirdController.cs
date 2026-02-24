@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http.Headers;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = System.Random;
 
 public class BirdController : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class BirdController : MonoBehaviour
     private Sprite _birdFly;
     private BirdData _birdData;
     private BirdBrain _brain;
+    private BirdSpawn.YConstrains _yConstrains;
     public List<LandingSpotGroup> landingGroups = new List<LandingSpotGroup>();
 
     private void Awake()
@@ -35,13 +37,14 @@ public class BirdController : MonoBehaviour
         _brain = GetComponent<BirdBrain>();
     }
 
-    public void Initialize(BirdData data)
+    public void Initialize(BirdData data, BirdSpawn.YConstrains yConstrains)
     {
         birdSpeed = data.speed;
         birdName = data.birdName;
         _birdFly = spriteRenderer.sprite;
         _birdSit = data.birdSitSprite;
         _birdData = data;
+        _yConstrains = yConstrains;
         gameObject.name = $"{birdName} | ID: {birdID}";
         print($"Initialized Bird Data {birdName}");
         FlipSprite(transform.position.x);
@@ -89,7 +92,7 @@ public class BirdController : MonoBehaviour
         {
             if (!_hasLanded && _brain.WillLand())
             {
-                var landSpot = _brain.ChooseNextSpot(landingGroups, birdID, _birdData.allowedLandingTypes);
+                var landSpot = _brain.ChooseNextLandingSpot(landingGroups, birdID, _birdData.allowedLandingTypes);
                 if (landSpot == null)
                 {
                     Debug.Log($"Bird: {birdID} wanted to land but there were no spots.");
@@ -119,12 +122,16 @@ public class BirdController : MonoBehaviour
                 if (_spawnedLeft)
                 {
                     //Fly off to the right, beyond spawn point to cause despawn
-                    target = rightSpawn + Vector3.right * 2f;
+                    target = new Vector3(rightSpawn.x + 2f, 
+                        UnityEngine.Random.Range(_yConstrains.min, _yConstrains.max), 
+                        transform.position.z);
                 }
                 else
                 {
                     //Fly off to the left, beyond spawn point to cause despawn
-                    target = leftSpawn + Vector3.left * 2f;
+                    target = new Vector3(leftSpawn.x - 2f,
+                        UnityEngine.Random.Range(_yConstrains.min, _yConstrains.max),
+                        transform.position.z);
                 }
                 SpriteChange();
                 yield return FlyToCoroutine(target, birdSpeed);

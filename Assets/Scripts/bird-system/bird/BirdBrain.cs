@@ -17,7 +17,7 @@ public class BirdBrain : MonoBehaviour
         return true;
     }
     
-    public LandingSpot ChooseNextSpot(List<LandingSpotGroup> groups, string ID, List<LandingSpotGroup.LandingTypes> allowedLandingTypes)
+    public LandingSpot ChooseNextLandingSpot(List<LandingSpotGroup> groups, string ID, List<LandingSpotGroup.LandingTypes> allowedLandingTypes)
     {
         if (currentSpot != null)
         {
