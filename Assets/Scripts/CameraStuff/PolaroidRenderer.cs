@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PolaroidRenderer : MonoBehaviour
+public class PolaroidRenderer : MonoBehaviour //holy michael mcintyre
 {
     public Texture2D polaroidFrame;
     public Vector2Int photoAreaOffset;

@@ -18,6 +18,7 @@ public class CameraLag : MonoBehaviour
     public GameObject ViewFinder; //this can be linked to ui or whatever else, artists pretty please make a nice viewfinder thank you.
     public PolaroidEjector Ejector; //it ejects.
     public float maxDistance;
+    
 
 
     public void Start()
@@ -90,7 +91,7 @@ public class CameraLag : MonoBehaviour
     public void Update()
     {
         // shooting stuff
-        if (FilmCam.transform.position == Target.position && isAiming == true && Input.GetKeyDown(KeyCode.Mouse0)) // you should totally spam lmb with an autoclicker it's very fun for your pc
+        if (FilmCam.transform.position == Target.position && isAiming == true && Input.GetKeyDown(KeyCode.Mouse0) && Ejector.isBusy == false) // you should totally spam lmb with an autoclicker it's very fun for your pc
         {
             Ray ray = Cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             RaycastHit hit;
