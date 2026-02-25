@@ -397,10 +397,6 @@ PrefabInstance:
       value: Bird System
       objectReference: {fileID: 0}
     - target: {fileID: 4064345275137061263, guid: 735f3b64164f23f45a3bd5ea2c1a44de, type: 3}
-      propertyPath: isNight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4064345275137061263, guid: 735f3b64164f23f45a3bd5ea2c1a44de, type: 3}
       propertyPath: currentBiome
       value: 1
       objectReference: {fileID: 0}
@@ -408,9 +404,9 @@ PrefabInstance:
       propertyPath: spawnTimerMax
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 4709486998163133722, guid: 735f3b64164f23f45a3bd5ea2c1a44de, type: 3}
-      propertyPath: landingType
-      value: 1
+    - target: {fileID: 6478576227158479118, guid: 735f3b64164f23f45a3bd5ea2c1a44de, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.6446
       objectReference: {fileID: 0}
     - target: {fileID: 6478576227158479118, guid: 735f3b64164f23f45a3bd5ea2c1a44de, type: 3}
       propertyPath: m_LocalPosition.x
@@ -422,7 +418,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6478576227158479118, guid: 735f3b64164f23f45a3bd5ea2c1a44de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 22.16
       objectReference: {fileID: 0}
     - target: {fileID: 6478576227158479118, guid: 735f3b64164f23f45a3bd5ea2c1a44de, type: 3}
       propertyPath: m_LocalRotation.w
@@ -669,7 +665,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2099906153022477230, guid: e81759c40e8c6c043a4885bfc247a293, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7018395442993573353, guid: e81759c40e8c6c043a4885bfc247a293, type: 3}
       propertyPath: m_LocalPosition.x
@@ -716,6 +712,96 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e81759c40e8c6c043a4885bfc247a293, type: 3}
+--- !u!1001 &1665307718
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.46
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.62
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7110600329774063004, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.0167608
+      objectReference: {fileID: 0}
+    - target: {fileID: -7110600329774063004, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -20.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_Name
+      value: WIP Bird Watch Developmental Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370051126832616397, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370051126832616397, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -16.03695
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982188027732379328, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982188027732379328, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -20.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439195247622373174, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.1845093
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439195247622373174, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -20.96
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 65702495048144492, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0a1a4b635b1c4dc4e908adac24a72b95, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -726,3 +812,4 @@ SceneRoots:
   - {fileID: 331512185}
   - {fileID: 1292337905}
   - {fileID: 161374202}
+  - {fileID: 1665307718}

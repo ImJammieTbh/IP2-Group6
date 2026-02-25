@@ -82,7 +82,7 @@ public class StartMenuController : MonoBehaviour
     //START GAME
     public void OnStartClick()
     {
-        SceneManager.LoadScene("SampleScene"); // Moves to the scene named in the brackets
+        SceneManager.LoadScene("DemoV1"); // Moves to the scene named in the brackets
     }
 
 
