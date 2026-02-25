@@ -3,6 +3,7 @@ using UnityEngine;
 public class PhotoManager : MonoBehaviour
 {
     public static PhotoManager Instance;
+    
 
     public PhotoData LatestPhoto;
 

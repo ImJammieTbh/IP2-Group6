@@ -4,7 +4,7 @@ using UnityEngine;
 public class PhotoData
 {
     public Texture2D Texture;
-    public Sprite PolaroidSprite; // spongbort image
+    public Sprite PolaroidSprite; // spongbort image,
     public System.DateTime Timestamp;
 
     public PhotoData(Texture2D Photo)
