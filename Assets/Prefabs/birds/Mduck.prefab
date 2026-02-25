@@ -141,6 +141,8 @@ MonoBehaviour:
   birdSpeed: 0
   birdID: 
   spriteRenderer: {fileID: 0}
+  animator: {fileID: 0}
+  isMoving: 0
   _hasLanded: 0
   leftSpawn: {x: 0, y: 0, z: 0}
   rightSpawn: {x: 0, y: 0, z: 0}
@@ -169,7 +171,7 @@ Animator:
   m_GameObject: {fileID: 5838005586309543983}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 27dbf4fc2f1b6e84d8c4ef64c045cf17, type: 2}
+  m_Controller: {fileID: 9100000, guid: a8b5bc5e74faa0445a75bf57702ad2cb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
