@@ -19,6 +19,6 @@ MonoBehaviour:
   birdSitSprite: {fileID: 0}
   spawnWeight: 60
   speed: 2.5
-  biome: 1
+  biome: 2
   isNightOnly: 0
   allowedLandingTypes: 02000000
