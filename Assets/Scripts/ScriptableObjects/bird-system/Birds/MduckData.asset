@@ -16,7 +16,9 @@ MonoBehaviour:
   birdDescription: This is a Duck but male
   birdID: 3
   prefab: {fileID: 5838005586309543983, guid: e2157830b34bd554b9d9fc8c2ff030cd, type: 3}
+  birdSitSprite: {fileID: 21300000, guid: a5fbe103b08d8df46ab7a724c6cd0c2c, type: 3}
   spawnWeight: 50
   speed: 1
   biome: 1
   isNightOnly: 0
+  allowedLandingTypes: 01000000

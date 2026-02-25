@@ -397,12 +397,20 @@ PrefabInstance:
       value: Bird System
       objectReference: {fileID: 0}
     - target: {fileID: 4064345275137061263, guid: 735f3b64164f23f45a3bd5ea2c1a44de, type: 3}
+      propertyPath: isNight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064345275137061263, guid: 735f3b64164f23f45a3bd5ea2c1a44de, type: 3}
       propertyPath: currentBiome
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4064345275137061263, guid: 735f3b64164f23f45a3bd5ea2c1a44de, type: 3}
       propertyPath: spawnTimerMax
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4709486998163133722, guid: 735f3b64164f23f45a3bd5ea2c1a44de, type: 3}
+      propertyPath: landingType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6478576227158479118, guid: 735f3b64164f23f45a3bd5ea2c1a44de, type: 3}
       propertyPath: m_LocalPosition.x

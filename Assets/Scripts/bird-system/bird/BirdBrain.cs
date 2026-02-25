@@ -17,7 +17,7 @@ public class BirdBrain : MonoBehaviour
         return true;
     }
     
-    public LandingSpot ChooseNextSpot(List<LandingSpotGroup> groups, string ID)
+    public LandingSpot ChooseNextLandingSpot(List<LandingSpotGroup> groups, string ID, List<LandingSpotGroup.LandingTypes> allowedLandingTypes)
     {
         if (currentSpot != null)
         {
@@ -27,7 +27,7 @@ public class BirdBrain : MonoBehaviour
         
         // Get all available spots across all non-full groups
         var allAvailableSpots = groups
-            .Where(g => !g.isFull)
+            .Where(g => !g.isFull && allowedLandingTypes.Contains(g.landingType))
             .SelectMany(g => g.GetAvailableLandingSpots())
             .Where(spot => !spot.isOccupied)
             .ToList();

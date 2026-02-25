@@ -20,11 +20,14 @@ public class BirdData : ScriptableObject
     [Header("Prefab")]
     public GameObject prefab;
     
+    public Sprite birdSitSprite;
+    
     [Header("Spawn Configuration")]
     public float spawnWeight;
     public float speed;
     
-    [Header("Conditions")]
+    [Header("Spawn Conditions")]
     public Biome biome;
     public bool isNightOnly;
+    public List<LandingSpotGroup.LandingTypes> allowedLandingTypes;
 }

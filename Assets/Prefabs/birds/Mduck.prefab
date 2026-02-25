@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3748425135555815402}
   - component: {fileID: 740147773246107158}
   - component: {fileID: 914773004864867708}
+  - component: {fileID: 2883228848157901330}
   m_Layer: 0
   m_Name: Mduck
   m_TagString: Bird
@@ -138,7 +139,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   birdName: 
   birdSpeed: 0
+  birdID: 
   spriteRenderer: {fileID: 0}
+  animator: {fileID: 0}
+  isMoving: 0
+  _hasLanded: 0
   leftSpawn: {x: 0, y: 0, z: 0}
   rightSpawn: {x: 0, y: 0, z: 0}
   landingGroups: []
@@ -154,4 +159,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0d782e5580daa49b6db9bf076a9d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSpot: {fileID: 0}
   chanceToLand: 0.4
+--- !u!95 &2883228848157901330
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5838005586309543983}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a8b5bc5e74faa0445a75bf57702ad2cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

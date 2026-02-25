@@ -10,14 +10,19 @@ using Random = System.Random;
 [RequireComponent(typeof(BoundsBox))]
 public class BirdSpawn : MonoBehaviour
 {
+    public struct YConstrains
+    {
+        public float min;
+        public float max;
+    }
+    
     private BoundsBox _box;
 
     private Vector3 _spawnLeft;
     private Vector3 _spawnRight;
     private Vector3 _lastSpawnPos;
-
-    private float _minY;
-    private float _maxY;
+    
+    private YConstrains _yConstrains;
     
     private bool _hasSpawnedBefore = false;
 
@@ -47,8 +52,8 @@ public class BirdSpawn : MonoBehaviour
         _spawnLeft = _box.WorldLeft;
         _spawnRight = _box.WorldRight;
 
-        _maxY = _box.WorldTop.y - yPadding;
-        _minY = _box.WorldBottom.y + yPadding;
+        _yConstrains.max = _box.WorldTop.y - yPadding;
+        _yConstrains.min = _box.WorldBottom.y + yPadding;
     }
 
     private void FixedUpdate()
@@ -71,7 +76,7 @@ public class BirdSpawn : MonoBehaviour
         BirdController birdController = birdObj.GetComponent<BirdController>();
         
         CreateBirdID(birdController, data);
-        birdController.Initialize(data);
+        birdController.Initialize(data,_yConstrains);
         birdController.leftSpawn = _spawnLeft;
         birdController.rightSpawn = _spawnRight;
         birdObj.transform.SetParent(transform);
@@ -83,7 +88,7 @@ public class BirdSpawn : MonoBehaviour
         if (!_hasSpawnedBefore)
         {
             _lastSpawnPos = UnityEngine.Random.value < 0.5f ? _spawnLeft : _spawnRight;
-            _lastSpawnPos.y = UnityEngine.Random.Range(_minY, _maxY);
+            _lastSpawnPos.y = UnityEngine.Random.Range(_yConstrains.min, _yConstrains.max);
             _hasSpawnedBefore = true;
             return _lastSpawnPos;
         }
@@ -94,7 +99,7 @@ public class BirdSpawn : MonoBehaviour
             _lastSpawnPos.x = _lastSpawnPos.x == _spawnLeft.x ? _spawnRight.x : _spawnLeft.x;
         }
 
-        float newY = UnityEngine.Random.Range(_minY, _maxY);
+        float newY = UnityEngine.Random.Range(_yConstrains.min, _yConstrains.max);
 
         //Check if the Y value of next spawn will be too close to previous Y
         if (Mathf.Abs(newY - _lastSpawnPos.y) < minYDistance)
@@ -110,7 +115,7 @@ public class BirdSpawn : MonoBehaviour
                 newY = _lastSpawnPos.y - forcedYOffset;
 
             //Clamp the values to the bounds of the spawn area
-            newY = Mathf.Clamp(newY, _minY, _maxY);
+            newY = Mathf.Clamp(newY, _yConstrains.min, _yConstrains.max);
         }
 
         _lastSpawnPos.y = newY;
