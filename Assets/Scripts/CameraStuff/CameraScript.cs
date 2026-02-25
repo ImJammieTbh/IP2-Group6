@@ -108,7 +108,7 @@ public class CameraLag : MonoBehaviour
     public void Update()
     {
         // shooting stuff
-        if (FilmCam.transform.position == Target.position && isAiming && Input.GetKeyDown(KeyCode.Mouse0) || _rightTriggerDown) // you should totally spam lmb with an autoclicker it's very fun for your pc
+        if (FilmCam.transform.position == Target.position && isAiming && (Input.GetKeyDown(KeyCode.Mouse0) || _rightTriggerDown) && !Ejector.isBusy) // you should totally spam lmb with an autoclicker it's very fun for your pc
         {
             Ray ray = Cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             RaycastHit hit;
