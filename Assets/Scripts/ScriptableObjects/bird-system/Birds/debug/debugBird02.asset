@@ -16,7 +16,9 @@ MonoBehaviour:
   birdDescription: this is a "bird" that is used to test things
   birdID: 1
   prefab: {fileID: 4156658717715895741, guid: 9bc70e3d119321041a06c6712f1ec840, type: 3}
+  birdSitSprite: {fileID: 0}
   spawnWeight: 50
   speed: 2
   biome: 0
   isNightOnly: 0
+  allowedLandingTypes: 01000000
