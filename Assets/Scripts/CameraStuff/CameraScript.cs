@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using static UnityEngine.GraphicsBuffer;
 
@@ -19,7 +21,22 @@ public class CameraLag : MonoBehaviour
     public PolaroidEjector Ejector; //it ejects.
     public float maxDistance;
     
+    private InputSystem_Actions _actions;
+    private bool _leftTriggerDown;
+    private bool _rightTriggerDown;
 
+    public void Awake()
+    {
+        //new input system stuff
+        _actions = new InputSystem_Actions();
+        _actions.Enable();
+        
+        _actions.Player.View.performed += _ => LeftTriggerToggle(); //event for the looking ( left trigger )
+        _actions.Player.View.canceled += _ => LeftTriggerToggle();
+        
+        _actions.Player.Photo.performed += _ => RightTriggerToggle(); //event for the taking photo ( right trigger )
+        _actions.Player.Photo.canceled += _ => RightTriggerToggle();
+    }
 
     public void Start()
     {
@@ -33,12 +50,12 @@ public class CameraLag : MonoBehaviour
         
         if (FilmCam.transform.position == Target.position && isAiming == true) // this whole thing just stops the "camera" from rendering whenever you're trying to look through the viewfinder.
         {
-            FilmCam.GetComponent<MeshRenderer>().enabled = false;
+            FilmCam.gameObject.SetActive(false);
             ViewFinder.SetActive(true);
         }
         else
         {
-            FilmCam.GetComponent<MeshRenderer>().enabled = true;
+            FilmCam.gameObject.SetActive(true);
             ViewFinder.SetActive(false);
         }
 
@@ -54,7 +71,7 @@ public class CameraLag : MonoBehaviour
         // PLAYER MOUSE BUTTONS
 
         // aiming stuff
-        if (Input.GetKey(KeyCode.Mouse1))
+        if (Input.GetKey(KeyCode.Mouse1) || _leftTriggerDown)
         {
             isAiming = true;
             Swap();
@@ -91,7 +108,7 @@ public class CameraLag : MonoBehaviour
     public void Update()
     {
         // shooting stuff
-        if (FilmCam.transform.position == Target.position && isAiming == true && Input.GetKeyDown(KeyCode.Mouse0) && Ejector.isBusy == false) // you should totally spam lmb with an autoclicker it's very fun for your pc
+        if (FilmCam.transform.position == Target.position && isAiming && (Input.GetKeyDown(KeyCode.Mouse0) || _rightTriggerDown) && !Ejector.isBusy) // you should totally spam lmb with an autoclicker it's very fun for your pc
         {
             Ray ray = Cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             RaycastHit hit;
@@ -156,6 +173,14 @@ public class CameraLag : MonoBehaviour
         }
     }
 
+    public void LeftTriggerToggle()
+    {
+        _leftTriggerDown = !_leftTriggerDown;
+    }
 
+    public void RightTriggerToggle()
+    {
+        _rightTriggerDown = !_rightTriggerDown;
+    }
 }
 
