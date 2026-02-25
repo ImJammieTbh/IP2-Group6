@@ -50,12 +50,12 @@ public class CameraLag : MonoBehaviour
         
         if (FilmCam.transform.position == Target.position && isAiming == true) // this whole thing just stops the "camera" from rendering whenever you're trying to look through the viewfinder.
         {
-            FilmCam.GetComponent<MeshRenderer>().enabled = false;
+            FilmCam.gameObject.SetActive(false);
             ViewFinder.SetActive(true);
         }
         else
         {
-            FilmCam.GetComponent<MeshRenderer>().enabled = true;
+            FilmCam.gameObject.SetActive(true);
             ViewFinder.SetActive(false);
         }
 
