@@ -4,6 +4,7 @@ using UnityEngine;
 public class PolaroidBehaviour : MonoBehaviour
 {
     public Transform followTarget;   // set by the ejector
+    public AudioSource ejectSound;
     public float followLag = 10f;    // higher = snappier, lower = floaty
     public float ejectDistance = 0.3f;
     public float ejectTime = 0.2f;
@@ -29,6 +30,9 @@ public class PolaroidBehaviour : MonoBehaviour
 
     IEnumerator Popout()
     {
+        ejectSound.volume = 0.25f;
+        ejectSound.Play();
+        
         Vector3 ejectPos = localStartPos + Vector3.forward * ejectDistance; // pops out
         yield return MoveLocal(localStartPos, ejectPos, ejectTime); 
 
@@ -37,6 +41,7 @@ public class PolaroidBehaviour : MonoBehaviour
         Vector3 fallPos = ejectPos + Vector3.down * fallDistance; // falls down
         yield return MoveLocal(ejectPos, fallPos, fallTime);
 
+        ejectSound.Stop();
         Destroy(gameObject); // DIES
     }
 

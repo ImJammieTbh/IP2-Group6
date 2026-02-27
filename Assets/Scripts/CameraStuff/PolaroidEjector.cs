@@ -3,12 +3,11 @@ using UnityEngine;
 
 public class PolaroidEjector : MonoBehaviour
 {
-    public CanvasGroup viewfinderBlackout; // I'm not sure if I want to touch UI since I dunno what's up w that
+    public CanvasGroup Shutter; // this is the shutter. technically the current polaroid camera (seen during presentation) is not an slr, so there's not actually any blackout from the shutter.
     public AudioSource shutterSound; // haven't found/made the sounds yet
-    public AudioSource ejectSound;
     public GameObject polaroidPrefab; // world or UI version
     public Transform uiTransform;
-    public Transform ejectPoint;
+    //public Transform ejectPoint;
     public Transform CameraHolder;
 
     public PhotoCapture capture;
@@ -23,24 +22,24 @@ public class PolaroidEjector : MonoBehaviour
             yield break;
         isBusy = true;
         
-        // viewfinderBlackout.alpha = 1f;
+        Shutter.alpha = 1f;
 
         yield return new WaitForSeconds(0.05f);
 
-        // shutterSound.Play();
+        shutterSound.volume = 0.15f;
+        shutterSound.time = 2.3f;
+        shutterSound.Play();
         Texture2D raw = capture.Capture(); //goes to photocapture n tells it to capture
 
         Sprite polaroid = render.CreatePolaroid(raw); //takes the polaroid sprite
 
         PhotoManager.Instance.SetLatestPhoto(raw, polaroid);
 
-        // ejectSound.Play(); // Eject animation sound
-
         GameObject ui = Instantiate(polaroidPrefab, uiTransform);
         ui.GetComponent<PolaroidUI>().Init(polaroid, this);
 
         yield return new WaitForSeconds(0.1f); // fades back in after a bit
-        // viewfinderBlackout.alpha = 0f;
+        Shutter.alpha = 0f;
     }
 }
 
