@@ -8,13 +8,12 @@ namespace bird_system
     public class BirdSpawnTable : ScriptableObject
     {
         public List<BirdData> birds;
-        
-        public BirdData lastBird;
 
-        public BirdData GetRandomBird(BirdData.Biome biome, bool isNight)
+        public BirdData GetRandomBird(BirdData.Biome biome, bool isNight, BirdData lastBird)
         {
-            var validBirds = birds.Where
-                (b => b.biome == biome && (!b.isNightOnly || isNight)).ToList();
+            var validBirds = birds
+                .Where(b => b.biome == biome && (!b.isNightOnly || isNight))
+                .ToList();
             
             if (validBirds.Count == 0)
                 return null;
