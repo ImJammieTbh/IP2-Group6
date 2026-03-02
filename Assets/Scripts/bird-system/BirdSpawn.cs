@@ -25,6 +25,7 @@ public class BirdSpawn : MonoBehaviour
     private YConstrains _yConstrains;
     
     private bool _hasSpawnedBefore = false;
+    private BirdData _lastSpawnedBird;
 
     private float _spawnTimer;
     [Tooltip("Time in seconds between spawning of birds.")]
@@ -69,8 +70,9 @@ public class BirdSpawn : MonoBehaviour
 
     public void SpawnBird(Vector3 spawnPos)
     {
-        BirdData data = spawnTable.GetRandomBird(currentBiome, isNight);
+        BirdData data = spawnTable.GetRandomBird(currentBiome, isNight, _lastSpawnedBird);
         if (data == null) return;
+        _lastSpawnedBird = data;
         
         GameObject birdObj = Instantiate(data.prefab, spawnPos, Quaternion.identity);
         BirdController birdController = birdObj.GetComponent<BirdController>();
