@@ -149,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4738387121626599508, guid: bd86024feb0f55240a36890dad8fca01, type: 3}
       propertyPath: maxZoom
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4738387121626599508, guid: bd86024feb0f55240a36890dad8fca01, type: 3}
       propertyPath: minZoom
@@ -167,6 +167,10 @@ PrefabInstance:
       propertyPath: ViewFinder
       value: 
       objectReference: {fileID: 485657121}
+    - target: {fileID: 4738387121626599508, guid: bd86024feb0f55240a36890dad8fca01, type: 3}
+      propertyPath: maxDistance
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7763699256336154198, guid: bd86024feb0f55240a36890dad8fca01, type: 3}
       propertyPath: Cam
       value: 

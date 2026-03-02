@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -8,6 +9,7 @@ public class CameraLag : MonoBehaviour
 {
     public Transform CamPos; // Player Camera
     public Camera Cam; // Player Camera
+    public Camera PhotoCam;
     public GameObject FilmCam; // this is the film cam representation, it does nothing but exist and make the player think, "WOW! I'm really taking photos with this!". also, artists please make a cool camera because clearly the current one is very temporary.
     public float rotationLag = 10f;   // higher = snappier, lower = heavier, just for if we use different cameras/lenses, the weight/lag can easily be edited, maybe from a table or smt.
     public float AimSpeed;
@@ -20,6 +22,12 @@ public class CameraLag : MonoBehaviour
     public GameObject ViewFinder; //this can be linked to ui or whatever else, artists pretty please make a nice viewfinder thank you.
     public PolaroidEjector Ejector; //it ejects.
     public float maxDistance;
+
+    private float TargetFOV;
+    private float CurrentFOV;
+    private float SavedFOV;
+    public float maxZoom;
+    public float minZoom;
     
     private InputSystem_Actions _actions;
     private bool _leftTriggerDown;
@@ -46,7 +54,6 @@ public class CameraLag : MonoBehaviour
     public void LateUpdate()
     {
 
-        // AIMING STUFF
         
         if (FilmCam.transform.position == Target.position && isAiming == true) // this whole thing just stops the "camera" from rendering whenever you're trying to look through the viewfinder.
         {
@@ -59,18 +66,13 @@ public class CameraLag : MonoBehaviour
             ViewFinder.SetActive(false);
         }
 
-        // CAM HOLDER ROTATION
-
-        transform.rotation = Quaternion.Slerp // smoothly rotate toward the Target rotation
+        transform.rotation = Quaternion.Slerp // smoothly rotate toward the Target rotation.
         (
             transform.rotation,
             CamPos.rotation,
             rotationLag * Time.deltaTime
         );
 
-        // PLAYER MOUSE BUTTONS
-
-        // aiming stuff
         if (Input.GetKey(KeyCode.Mouse1) || _leftTriggerDown)
         {
             isAiming = true;
@@ -80,13 +82,10 @@ public class CameraLag : MonoBehaviour
                 sinTime += Time.deltaTime * AimSpeed;
                 sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
                 float t = Evaluate(sinTime);
-                FilmCam.transform.position = Vector3.Lerp(Current.position, Target.position, t); //checks is rmb is held, changes film cam position and main cam fov
+                FilmCam.transform.position = Vector3.Lerp(Current.position, Target.position, t); //checks is rmb is held, changes film cam position and main cam fov.
+
             }
-
-            Cam.fieldOfView = 50f;
-
             
-
         }
         else
         {
@@ -97,12 +96,51 @@ public class CameraLag : MonoBehaviour
                 sinTime += Time.deltaTime * AimSpeed;
                 sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
                 float t = Evaluate(sinTime);
-                FilmCam.transform.position = Vector3.Lerp(Current.position, Target.position, t); //checks if aiming is false, then changes to Resting, sets fov back to normal
-            }
+                FilmCam.transform.position = Vector3.Lerp(Current.position, Target.position, t); //checks if aiming is false, then changes to Resting, sets fov back to normal.
 
-            Cam.fieldOfView = 70f;
+                TargetFOV = 70f;
+
+            }
+            
         }
 
+        CameraZoom();
+    }
+
+    public void CameraZoom()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse1)) // this is just for when you begin zooming, the targetFOV is initially set to 50.
+        {
+            if (SavedFOV < minZoom && SavedFOV > 0) // this checks if SavedFOV is within its constraints, and if it is, it'll just set the target to the saved one.
+            {
+                TargetFOV = SavedFOV;
+            }
+            else
+            {
+                TargetFOV = minZoom; // this is if savedFOV is somehow not within its constraints, for example when you first boot up the game at the moment. but it also helps prevent any weird glitches if they happen ig.
+            }
+        }
+        
+        if (isAiming && Input.GetKeyDown(KeyCode.E) && CurrentFOV >= maxZoom) // mind this is FOV, so maxZoom will be smaller than minZoom.
+        {
+            TargetFOV = CurrentFOV - 5f;
+        }
+        if (isAiming && Input.GetKeyDown(KeyCode.Q) && CurrentFOV <= minZoom)
+        {
+            TargetFOV = CurrentFOV + 5f; 
+        }
+
+        sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
+        float t = Evaluate(sinTime) * 0.025f;
+        CurrentFOV = Mathf.Lerp(CurrentFOV, TargetFOV, t);
+        Cam.fieldOfView = CurrentFOV;
+        PhotoCam.fieldOfView = CurrentFOV;
+
+        if (Input.GetKeyUp(KeyCode.Mouse1)) // saves current fov for when you aim again.
+        {
+            SavedFOV = CurrentFOV;
+            print("saved FOV is" + SavedFOV);
+        }
     }
 
     public void Update()
@@ -135,7 +173,7 @@ public class CameraLag : MonoBehaviour
 
     public float Evaluate(float x)
     {
-        return 0.5f * Mathf.Sin(x - Mathf.PI / 2f) + 0.5f; //this is for a smooth transition between Resting and aiming.
+        return 0.5f * Mathf.Sin(x - Mathf.PI / 2f) + 0.5f; //this is for a smooth transition between Resting and aiming/zooming values
     }
 
     public void Swap() //this is for switching the Target destination of the moving film camera
