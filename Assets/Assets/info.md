@@ -5,4 +5,4 @@
 - When making a system place it in the correct directory
     - if there is no correct directory please make one
 
-thankyou :)
+thankyou :))
