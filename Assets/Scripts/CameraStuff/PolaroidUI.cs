@@ -5,8 +5,11 @@ using UnityEngine.UI;
 public class PolaroidUI : MonoBehaviour
 {
     public Image polaroidImage;
+    public Image developer;
     public RectTransform rect;
-    public float slideTime = 0.3f;
+    public AudioSource eject;
+    public float slideTime = 0.3f; // also develop time
+    public float devTime = 1f;
     public float holdTime = 1.5f;
 
     private Vector2 offscreenPos;
@@ -27,11 +30,33 @@ public class PolaroidUI : MonoBehaviour
         rect.anchoredPosition = offscreenPos;
 
         StartCoroutine(SlideRoutine());
+        StartCoroutine(DevelopRoutine());
     }
+
+    IEnumerator DevelopRoutine()
+    {
+        float t = 0f;
+        Color c = developer.color;
+
+        while (t < devTime)
+        {
+            t += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, t / devTime);
+            developer.color = new Color(c.r, c.g, c.b, alpha);
+            yield return null;
+        }
+
+        developer.color = new Color(c.r, c.g, c.b, 0f);
+    }
+
 
     IEnumerator SlideRoutine()
     {
-        
+        eject.volume = 0.25f;
+        eject.pitch = Random.Range(0.9f, 1.1f);
+
+        eject.Play();
+
         float t = 0f;
         while (t < slideTime)
         {
@@ -39,6 +64,8 @@ public class PolaroidUI : MonoBehaviour
             rect.anchoredPosition = Vector2.Lerp(offscreenPos, onscreenPos, t / slideTime); // slide in
             yield return null;
         }
+
+        eject.Stop();
 
         rect.anchoredPosition = onscreenPos;
 
@@ -54,7 +81,7 @@ public class PolaroidUI : MonoBehaviour
         }
 
         ejector.isBusy = false;
-
+        
         Destroy(gameObject);
     }
 }
