@@ -44,6 +44,9 @@ public class CameraLag : MonoBehaviour
         
         _actions.Player.Photo.performed += _ => RightTriggerToggle(); //event for the taking photo ( right trigger )
         _actions.Player.Photo.canceled += _ => RightTriggerToggle();
+
+        _actions.Player.ZoomIn.performed += _ => PlusZoom();
+        _actions.Player.ZoomOut.performed += _ => MinusZoom();
     }
 
     public void Start()
@@ -83,9 +86,10 @@ public class CameraLag : MonoBehaviour
                 sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
                 float t = Evaluate(sinTime);
                 FilmCam.transform.position = Vector3.Lerp(Current.position, Target.position, t); //checks is rmb is held, changes film cam position and main cam fov.
-
+            
             }
             
+            // AimTrue();
         }
         else
         {
@@ -97,11 +101,12 @@ public class CameraLag : MonoBehaviour
                 sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
                 float t = Evaluate(sinTime);
                 FilmCam.transform.position = Vector3.Lerp(Current.position, Target.position, t); //checks if aiming is false, then changes to Resting, sets fov back to normal.
-
+            
                 TargetFOV = 70f;
-
+            
             }
             
+            // AimFalse();
         }
 
         CameraZoom();
@@ -123,11 +128,11 @@ public class CameraLag : MonoBehaviour
         
         if (isAiming && Input.GetKeyDown(KeyCode.E) && CurrentFOV >= maxZoom) // mind this is FOV, so maxZoom will be smaller than minZoom.
         {
-            TargetFOV = CurrentFOV - 5f;
+            PlusZoom();
         }
         if (isAiming && Input.GetKeyDown(KeyCode.Q) && CurrentFOV <= minZoom)
         {
-            TargetFOV = CurrentFOV + 5f; 
+            MinusZoom();
         }
 
         sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
@@ -176,6 +181,36 @@ public class CameraLag : MonoBehaviour
         return 0.5f * Mathf.Sin(x - Mathf.PI / 2f) + 0.5f; //this is for a smooth transition between Resting and aiming/zooming values
     }
 
+    public void AimTrue()
+    {
+        isAiming = true;
+        Swap();
+        if (FilmCam.transform.position != Target.position)
+        {
+            sinTime += Time.deltaTime * AimSpeed;
+            sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
+            float t = Evaluate(sinTime);
+            FilmCam.transform.position = Vector3.Lerp(Current.position, Target.position, t); //checks is rmb is held, changes film cam position and main cam fov.
+
+        }
+    }
+
+    public void AimFalse()
+    {
+        isAiming = false;
+        Swap();
+        if (FilmCam.transform.position != Target.position)
+        {
+            sinTime += Time.deltaTime * AimSpeed;
+            sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
+            float t = Evaluate(sinTime);
+            FilmCam.transform.position = Vector3.Lerp(Current.position, Target.position, t); //checks if aiming is false, then changes to Resting, sets fov back to normal.
+
+            TargetFOV = 70f;
+
+        }
+    }
+    
     public void Swap() //this is for switching the Target destination of the moving film camera
     {
         if (isAiming == true)
@@ -214,11 +249,43 @@ public class CameraLag : MonoBehaviour
     public void LeftTriggerToggle()
     {
         _leftTriggerDown = !_leftTriggerDown;
+        if (!_leftTriggerDown)
+        {
+            SavedFOV = CurrentFOV;
+            print("saved FOV is" + SavedFOV);
+        }
+        else
+        {
+            if (SavedFOV < minZoom && SavedFOV > 0) // this checks if SavedFOV is within its constraints, and if it is, it'll just set the target to the saved one.
+            {
+                TargetFOV = SavedFOV;
+            }
+            else
+            {
+                TargetFOV = minZoom; // this is if savedFOV is somehow not within its constraints, for example when you first boot up the game at the moment. but it also helps prevent any weird glitches if they happen ig.
+            }
+        }
     }
 
     public void RightTriggerToggle()
     {
         _rightTriggerDown = !_rightTriggerDown;
+    }
+
+    public void PlusZoom()
+    {
+        if (isAiming && CurrentFOV >= maxZoom) // mind this is FOV, so maxZoom will be smaller than minZoom.
+        {
+            TargetFOV = CurrentFOV - 5f;
+        }
+    }
+
+    public void MinusZoom()
+    {
+        if (isAiming && CurrentFOV <= minZoom)
+        {
+            TargetFOV = CurrentFOV + 5f;
+        }
     }
 }
 
