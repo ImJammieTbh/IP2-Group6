@@ -67,11 +67,11 @@ public class StartMenuController : MonoBehaviour
     void Update()
     {
         //Volume 
-        masterValue.SetText((masterSlider.value * 100).ToString());
-        sfxValue.SetText((sfxSlider.value * 100).ToString());
-        birdsValue.SetText((birdsSlider.value * 100).ToString());
-        musicValue.SetText((musicSlider.value * 100).ToString());
-        backgroundValue.SetText((backgroundSlider.value * 100).ToString());
+        masterValue.SetText((Mathf.Round(masterSlider.value * 100)).ToString());
+        sfxValue.SetText((Mathf.Round(sfxSlider.value * 100)).ToString());
+        birdsValue.SetText((Mathf.Round(birdsSlider.value * 100)).ToString());
+        musicValue.SetText((Mathf.Round(musicSlider.value * 100)).ToString());
+        backgroundValue.SetText((Mathf.Round(backgroundSlider.value * 100)).ToString());
 
         //Settings
         fovValue.SetText(fovSlider.value.ToString());
@@ -82,7 +82,7 @@ public class StartMenuController : MonoBehaviour
     //START GAME
     public void OnStartClick()
     {
-        SceneManager.LoadScene("DemoV1"); // Moves to the scene named in the brackets
+        SceneManager.LoadScene("DemoV1 with 3D"); // Moves to the scene named in the brackets
     }
 
 
