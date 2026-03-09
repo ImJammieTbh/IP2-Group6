@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class LimitedLook : MonoBehaviour
@@ -6,40 +7,60 @@ public class LimitedLook : MonoBehaviour
 
     public float sensitivity = 200f;
 
-    public float maxX; // can be changed when we get the map stuff done, so yk where you're looking n shit
+    public float maxX;
     public float maxY;
 
     public float xRotation = 0f;
     public float yRotation = 0f;
 
-    private bool _controlsSwitch;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public bool shakeActive = false;
+    public float shakeIntensity = 0.5f;
+    public float shakeSpeed = 0.005f; // really really slow, if you want something funny just turn this up to anything higher than this lmao (epilepsy warning ofc)
+
+    private float shakeTime = 0f;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         float mouseX = Input.GetAxis("Mouse X"); //gets mouse x n y from player input
         float mouseY = Input.GetAxis("Mouse Y");
-        
+
         float joystickX = Input.GetAxisRaw("RightStickX"); //gets right joystick x n y 
         float joystickY = -Input.GetAxisRaw("RightStickY");
-        
+
         float finalX = (joystickX + mouseX) * sensitivity * Time.deltaTime; // combines to allow for easy switch
         float finalY = (joystickY + mouseY) * sensitivity * Time.deltaTime;
 
         yRotation += finalX;
         xRotation -= finalY;
 
-        xRotation = Mathf.Clamp(xRotation, (maxX*(-1)), maxX); //make up rotations
-        yRotation = Mathf.Clamp(yRotation, (maxY*(-1)), maxY);
+        xRotation = Mathf.Clamp(xRotation, -maxX, maxX); //make up rotations
+        yRotation = Mathf.Clamp(yRotation, -maxY, maxY);
 
         
-        transform.localRotation = Quaternion.Euler(0f, yRotation, 0f); // apply rotations
-        Cam.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        transform.localRotation = Quaternion.Euler(0f, yRotation, 0f); // just the base rotations
+
+        
+        Quaternion camRotate = Quaternion.Euler(xRotation, 0f, 0f); // camera pitch rotation
+
+
+        Quaternion shakeRotate = Quaternion.identity; // adds shake if active
+        if (shakeActive)
+        {
+            print("shakeActive");
+            shakeTime += Time.deltaTime * (shakeSpeed/60);
+
+            float shakeX = (Mathf.PerlinNoise(shakeTime, 0f) - 0.5f) * shakeIntensity;
+            float shakeY = (Mathf.PerlinNoise(0f, shakeTime) - 0.5f) * shakeIntensity;
+
+            shakeRotate = Quaternion.Euler(shakeX, shakeY, 0f);
+        }
+
+        Cam.localRotation = camRotate * shakeRotate;
     }
 }
