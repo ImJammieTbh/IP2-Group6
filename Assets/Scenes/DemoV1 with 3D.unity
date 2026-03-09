@@ -181,6 +181,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1013494108}
     - target: {fileID: 954140773573123650, guid: bd86024feb0f55240a36890dad8fca01, type: 3}
+      propertyPath: SFXmanager
+      value: 
+      objectReference: {fileID: 340718639}
+    - target: {fileID: 954140773573123650, guid: bd86024feb0f55240a36890dad8fca01, type: 3}
       propertyPath: uiTransform
       value: 
       objectReference: {fileID: 1196234118}
@@ -1554,7 +1558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 274695361}
   m_Layer: 5
-  m_Name: ----- Controls -----
+  m_Name: --- Controls ---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2940,7 +2944,7 @@ GameObject:
   m_Component:
   - component: {fileID: 720346822}
   m_Layer: 5
-  m_Name: ----- Settings -----
+  m_Name: --- Settings ---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3729,7 +3733,7 @@ GameObject:
   m_Component:
   - component: {fileID: 827767017}
   m_Layer: 5
-  m_Name: ----- Volume -----
+  m_Name: --- Volume ---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5588,7 +5592,7 @@ AudioSource:
   m_GameObject: {fileID: 1158060823}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7712317266908509940, guid: 58ea2b219664d7c48a3b8c924321bed1, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 1e60b7260f1122841ae9d93c7243a806, type: 3}
   m_PlayOnAwake: 0

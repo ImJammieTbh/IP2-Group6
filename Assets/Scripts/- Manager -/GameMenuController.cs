@@ -73,7 +73,7 @@ public class GameMenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape)) && isPaused == false)  //|| add controller button 
+        if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) && isPaused == false)  // pausing
         {
             // pausing
             isPaused = true;
@@ -86,7 +86,7 @@ public class GameMenuController : MonoBehaviour
             pauseText.gameObject.SetActive(true); // pause text
             pauseButtons.gameObject.SetActive(true); // pause menu buttons
         }
-        else if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape)) && isPaused == true) //unpausing
+        else if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) && isPaused == true) //unpausing
         {
             // unpausing
             isPaused = false;
