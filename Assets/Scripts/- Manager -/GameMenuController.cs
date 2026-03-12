@@ -51,8 +51,12 @@ public class GameMenuController : MonoBehaviour
     [Header("Pausing")]
     bool isPaused = false;
     public GameObject cameraObject; // disables the camera so it doesn't block the menu
+    //stop all audio when paused, source: https://discussions.unity.com/t/how-to-stop-all-audio/32919
+    private AudioSource[] allAudioSources;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+  
+ 
+   // Setting all assets as inactive
     void Start()
     {
         //text
@@ -67,14 +71,30 @@ public class GameMenuController : MonoBehaviour
         //Buttons
         pauseButtons.gameObject.SetActive(false);
         backButton.gameObject.SetActive(false);
+
+
+        // Carry over the value of the sliders over to the current scene
+        //Volume
+        masterSlider.value = StartMenuController.masterVol;
+        sfxSlider.value = StartMenuController.sfxVol;
+        birdsSlider.value = StartMenuController.birdsVol;
+        musicSlider.value = StartMenuController.musicVol;
+        backgroundSlider.value = StartMenuController.backgroundVol;
+
+        //Settings
+        sensitivitySlider.value = StartMenuController.sensitivityVal;
+        fovSlider.value = StartMenuController.fovVal;
     }
 
 
-    // Update is called once per frame
+    // Seeing when game is paused and update volume
     void Update()
     {
         if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) && isPaused == false)  // pausing
         {
+            //AudioListener.volume = 0; // TEMP SOLVER, mute all sounds, because if pause when a sound effect is playing it will play the whole sound
+            StopAllAudio();
+
             // pausing
             isPaused = true;
             Time.timeScale = 0; // stops gameplay  ,  need a way to stop camera from beng effected
@@ -88,6 +108,8 @@ public class GameMenuController : MonoBehaviour
         }
         else if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) && isPaused == true) //unpausing
         {
+            //AudioListener.volume = 1;
+
             // unpausing
             isPaused = false;
             Time.timeScale = 1;
@@ -118,6 +140,15 @@ public class GameMenuController : MonoBehaviour
         //Settings
         fovValue.SetText(fovSlider.value.ToString());
         sensitivityValue.SetText(sensitivitySlider.value.ToString());
+    }
+
+    void StopAllAudio()
+    {
+        allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        foreach (AudioSource audioS in allAudioSources)
+        {
+            audioS.Stop();
+        }
     }
 
 

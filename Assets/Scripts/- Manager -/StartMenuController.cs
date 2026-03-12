@@ -48,12 +48,24 @@ public class StartMenuController : MonoBehaviour
     public Button quitButton;
     public Button backButton;
 
+    // Static values to carry across scenes
+    //Volume
+    public static float masterVol;
+    public static float sfxVol;
+    public static float birdsVol;
+    public static float musicVol;
+    public static float backgroundVol;
+
+    //Setting
+    public static float sensitivityVal;
+    public static float fovVal;
+
 
 
     // Sets all the setting UI elements as inactive (hidden)
     void Start()
     {
-        //Volune
+        //Volume
         volume.gameObject.SetActive(false);
 
         //Settings
@@ -76,6 +88,21 @@ public class StartMenuController : MonoBehaviour
         //Settings
         fovValue.SetText(fovSlider.value.ToString());
         sensitivityValue.SetText(sensitivitySlider.value.ToString());
+
+
+
+        // making values static to carry over scenes
+
+        //Volume
+        masterVol = masterSlider.value;
+        sfxVol = sfxSlider.value;
+        birdsVol = birdsSlider.value;
+        musicVol = musicSlider.value;
+        backgroundVol = backgroundSlider.value;
+
+        //Setting
+        sensitivityVal = sensitivitySlider.value;
+        fovVal = fovSlider.value;
     }
 
 
