@@ -33,7 +33,7 @@ public class CameraLag : MonoBehaviour
     private bool _leftTriggerDown;
     private bool _rightTriggerDown;
 
-    public static event Action<BirdData> OnPhotoTaken;
+    public static event Action<BirdData, BirdController> OnPhotoTaken;
 
     public void Awake()
     {
@@ -164,7 +164,7 @@ public class CameraLag : MonoBehaviour
                 {
                     print("I miss my wife"); // future voiceline mechanic? very important story telling dialogue.
                     if (OnPhotoTaken != null)
-                        OnPhotoTaken.Invoke(hit.collider.gameObject.GetComponent<BirdController>().birdData);
+                        OnPhotoTaken.Invoke(hit.collider.gameObject.GetComponent<BirdController>().birdData, hit.collider.gameObject.GetComponent<BirdController>());
                     StartCoroutine(Ejector.TakePhoto());
                 }
 

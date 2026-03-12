@@ -16,9 +16,9 @@ public class GameManager : MonoBehaviour
         CameraLag.OnPhotoTaken += UpdateScore;
     }
 
-    public void UpdateScore(BirdData data)
+    public void UpdateScore(BirdData data, BirdController birdController)
     {
-        _scoreController.CheckValidBird(data);
+        _scoreController.CheckValidBird(data, birdController);
         scoreText.text = "Score: " + _scoreController.score;
     }
 }

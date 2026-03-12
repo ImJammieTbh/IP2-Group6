@@ -1748,9 +1748,9 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 6902209733934032186, guid: 71909210770ce9e4ba80361311cae4f6, type: 3}
-      propertyPath: targetBirds.Array.size
-      value: 3
-      objectReference: {fileID: 0}
+      propertyPath: photoCamera
+      value: 
+      objectReference: {fileID: 1329711165}
     - target: {fileID: 6902209733934032186, guid: 71909210770ce9e4ba80361311cae4f6, type: 3}
       propertyPath: 'targetBirds.Array.data[0]'
       value: 
@@ -1758,11 +1758,11 @@ PrefabInstance:
     - target: {fileID: 6902209733934032186, guid: 71909210770ce9e4ba80361311cae4f6, type: 3}
       propertyPath: 'targetBirds.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: 8cfd250b30293714783bfdd2d56ce912, type: 2}
+      objectReference: {fileID: 11400000, guid: 54f2645847c34bf46951981aa1773d97, type: 2}
     - target: {fileID: 6902209733934032186, guid: 71909210770ce9e4ba80361311cae4f6, type: 3}
       propertyPath: 'targetBirds.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: 54f2645847c34bf46951981aa1773d97, type: 2}
+      objectReference: {fileID: 11400000, guid: 8cfd250b30293714783bfdd2d56ce912, type: 2}
     - target: {fileID: 7326263473721772741, guid: 71909210770ce9e4ba80361311cae4f6, type: 3}
       propertyPath: scoreText
       value: 

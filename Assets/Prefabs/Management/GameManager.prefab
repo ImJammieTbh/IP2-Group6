@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a1b02028d9a68449c66becdb37490c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 0}
 --- !u!114 &6902209733934032186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,4 +58,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6aa21e29111b764dbc30f2da37a4454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetBirds: []
+  targetBirds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  score: 0
+  photoCamera: {fileID: 0}
+  sizeWeight: 60
+  centreWeight: 40
