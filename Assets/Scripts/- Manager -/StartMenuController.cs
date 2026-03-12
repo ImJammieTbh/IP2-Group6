@@ -50,15 +50,15 @@ public class StartMenuController : MonoBehaviour
 
     // Static values to carry across scenes
     //Volume
-    public static float masterVol;
-    public static float sfxVol;
-    public static float birdsVol;
-    public static float musicVol;
-    public static float backgroundVol;
+    public static float masterVol = 1;
+    public static float sfxVol = 1;
+    public static float birdsVol = 1;
+    public static float musicVol = 1;
+    public static float backgroundVol = 1;
 
     //Setting
-    public static float sensitivityVal;
-    public static float fovVal;
+    public static float sensitivityVal = 50;
+    public static float fovVal = 1;
 
 
 
