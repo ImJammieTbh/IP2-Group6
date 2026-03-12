@@ -1,9 +1,12 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     private ScoreController _scoreController;
+    
+    public TMP_Text scoreText;
 
     private void Awake()
     {
@@ -16,5 +19,6 @@ public class GameManager : MonoBehaviour
     public void UpdateScore(BirdData data)
     {
         _scoreController.CheckValidBird(data);
+        scoreText.text = "Score: " + _scoreController.score;
     }
 }
