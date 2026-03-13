@@ -48,12 +48,24 @@ public class StartMenuController : MonoBehaviour
     public Button quitButton;
     public Button backButton;
 
+    // Static values to carry across scenes
+    //Volume
+    public static float masterVol = 1;
+    public static float sfxVol = 1;
+    public static float birdsVol = 1;
+    public static float musicVol = 1;
+    public static float backgroundVol = 1;
+
+    //Setting
+    public static float sensitivityVal = 50;
+    public static float fovVal = 1;
+
 
 
     // Sets all the setting UI elements as inactive (hidden)
     void Start()
     {
-        //Volune
+        //Volume
         volume.gameObject.SetActive(false);
 
         //Settings
@@ -67,22 +79,37 @@ public class StartMenuController : MonoBehaviour
     void Update()
     {
         //Volume 
-        masterValue.SetText((masterSlider.value * 100).ToString());
-        sfxValue.SetText((sfxSlider.value * 100).ToString());
-        birdsValue.SetText((birdsSlider.value * 100).ToString());
-        musicValue.SetText((musicSlider.value * 100).ToString());
-        backgroundValue.SetText((backgroundSlider.value * 100).ToString());
+        masterValue.SetText((Mathf.Round(masterSlider.value * 100)).ToString());
+        sfxValue.SetText((Mathf.Round(sfxSlider.value * 100)).ToString());
+        birdsValue.SetText((Mathf.Round(birdsSlider.value * 100)).ToString());
+        musicValue.SetText((Mathf.Round(musicSlider.value * 100)).ToString());
+        backgroundValue.SetText((Mathf.Round(backgroundSlider.value * 100)).ToString());
 
         //Settings
         fovValue.SetText(fovSlider.value.ToString());
         sensitivityValue.SetText(sensitivitySlider.value.ToString());
+
+
+
+        // making values static to carry over scenes
+
+        //Volume
+        masterVol = masterSlider.value;
+        sfxVol = sfxSlider.value;
+        birdsVol = birdsSlider.value;
+        musicVol = musicSlider.value;
+        backgroundVol = backgroundSlider.value;
+
+        //Setting
+        sensitivityVal = sensitivitySlider.value;
+        fovVal = fovSlider.value;
     }
 
 
     //START GAME
     public void OnStartClick()
     {
-        SceneManager.LoadScene("DemoV1"); // Moves to the scene named in the brackets
+        SceneManager.LoadScene("DemoV1 with 3D"); // Moves to the scene named in the brackets
     }
 
 
