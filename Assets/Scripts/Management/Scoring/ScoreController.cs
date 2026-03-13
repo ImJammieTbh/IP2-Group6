@@ -1,10 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ScoreController : MonoBehaviour
 {
-    public List<BirdData> targetBirds;
-
     public float score;
     
     public Camera photoCamera;
@@ -12,26 +11,8 @@ public class ScoreController : MonoBehaviour
     [Header("Score Weights")] 
     public float sizeWeight;
     public float centreWeight;
-
-    public void CheckValidBird(BirdData shotBird, BirdController birdController)
-    {
-        if (targetBirds.Count == 0)//case if the list of birds is not set
-        {
-            print("Target birds are empty");
-        }
-
-        foreach (BirdData targetBird in targetBirds)
-        {
-            if (shotBird == targetBird)
-            {
-                print("correct bird shot");
-                score = GetPhotoScore(birdController.spriteRenderer);
-                print($"Score for this picture was: {score}");
-            }
-        }
-    }
     
-    public float GetPhotoScore( SpriteRenderer birdSpriteRenderer)
+    public float GetPhotoScore(SpriteRenderer birdSpriteRenderer)
     {
         if (photoCamera == null || birdSpriteRenderer == null)
             return 0f;

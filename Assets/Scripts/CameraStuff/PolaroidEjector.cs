@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ public class PolaroidEjector : MonoBehaviour
     public PolaroidUI uiDisplay;
 
     public bool isBusy = false;
+
+    public static event Action OnEjected;
 
     public IEnumerator TakePhoto()
     {
@@ -40,6 +43,9 @@ public class PolaroidEjector : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f); // fades back in after a bit
         Shutter.alpha = 0f;
+        
+        yield return new WaitForSeconds(0.5f);
+        OnEjected?.Invoke();
     }
 }
 

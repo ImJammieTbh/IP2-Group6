@@ -1767,6 +1767,26 @@ PrefabInstance:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1398397723}
+    - target: {fileID: 7326263473721772741, guid: 71909210770ce9e4ba80361311cae4f6, type: 3}
+      propertyPath: photoManager
+      value: 
+      objectReference: {fileID: 1908562852}
+    - target: {fileID: 7326263473721772741, guid: 71909210770ce9e4ba80361311cae4f6, type: 3}
+      propertyPath: targetBirds.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7326263473721772741, guid: 71909210770ce9e4ba80361311cae4f6, type: 3}
+      propertyPath: 'targetBirds.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 753967a8277fc5c4ebe93487bb5edb26, type: 2}
+    - target: {fileID: 7326263473721772741, guid: 71909210770ce9e4ba80361311cae4f6, type: 3}
+      propertyPath: 'targetBirds.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 8cfd250b30293714783bfdd2d56ce912, type: 2}
+    - target: {fileID: 7326263473721772741, guid: 71909210770ce9e4ba80361311cae4f6, type: 3}
+      propertyPath: 'targetBirds.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 54f2645847c34bf46951981aa1773d97, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1946,6 +1966,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1908562852 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2750281801676554885, guid: bd86024feb0f55240a36890dad8fca01, type: 3}
+  m_PrefabInstance: {fileID: 34215773}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9cf30a9e792be64dbcff19c31aeb7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2034953253
 PrefabInstance:
   m_ObjectHideFlags: 0
