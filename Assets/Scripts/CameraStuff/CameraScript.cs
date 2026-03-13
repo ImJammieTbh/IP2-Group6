@@ -1,5 +1,6 @@
 using System;
 using Unity.VisualScripting;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -23,12 +24,14 @@ public class CameraLag : MonoBehaviour
     public PolaroidEjector Ejector; //it ejects.
     public float maxDistance;
 
+    public LimitedLook shaker;
+
     private float TargetFOV;
     private float CurrentFOV;
     private float SavedFOV;
     public float maxZoom;
     public float minZoom;
-    
+
     private InputSystem_Actions _actions;
     private bool _leftTriggerDown;
     private bool _rightTriggerDown;
@@ -38,10 +41,10 @@ public class CameraLag : MonoBehaviour
         //new input system stuff
         _actions = new InputSystem_Actions();
         _actions.Enable();
-        
+
         _actions.Player.View.performed += _ => LeftTriggerToggle(); //event for the looking ( left trigger )
         _actions.Player.View.canceled += _ => LeftTriggerToggle();
-        
+
         _actions.Player.Photo.performed += _ => RightTriggerToggle(); //event for the taking photo ( right trigger )
         _actions.Player.Photo.canceled += _ => RightTriggerToggle();
 
@@ -57,7 +60,7 @@ public class CameraLag : MonoBehaviour
     public void LateUpdate()
     {
 
-        
+
         if (FilmCam.transform.position == Target.position && isAiming == true) // this whole thing just stops the "camera" from rendering whenever you're trying to look through the viewfinder.
         {
             FilmCam.gameObject.SetActive(false);
@@ -86,9 +89,9 @@ public class CameraLag : MonoBehaviour
                 sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
                 float t = Evaluate(sinTime);
                 FilmCam.transform.position = Vector3.Lerp(Current.position, Target.position, t); //checks is rmb is held, changes film cam position and main cam fov.
-            
+
             }
-            
+
             // AimTrue();
         }
         else
@@ -101,16 +104,17 @@ public class CameraLag : MonoBehaviour
                 sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
                 float t = Evaluate(sinTime);
                 FilmCam.transform.position = Vector3.Lerp(Current.position, Target.position, t); //checks if aiming is false, then changes to Resting, sets fov back to normal.
-            
+
                 TargetFOV = 70f;
-            
+
             }
-            
+
             // AimFalse();
         }
 
         CameraZoom();
     }
+
 
     public void CameraZoom()
     {
@@ -124,6 +128,7 @@ public class CameraLag : MonoBehaviour
             {
                 TargetFOV = minZoom; // this is if savedFOV is somehow not within its constraints, for example when you first boot up the game at the moment. but it also helps prevent any weird glitches if they happen ig.
             }
+            shaker.shakeActive = true;
         }
         
         if (isAiming && Input.GetKeyDown(KeyCode.E) && CurrentFOV >= maxZoom) // mind this is FOV, so maxZoom will be smaller than minZoom.
@@ -145,6 +150,7 @@ public class CameraLag : MonoBehaviour
         {
             SavedFOV = CurrentFOV;
             print("saved FOV is" + SavedFOV);
+            shaker.shakeActive = false;
         }
     }
 

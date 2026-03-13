@@ -8,7 +8,7 @@ public class PolaroidUI : MonoBehaviour
     public Image developer;
     public RectTransform rect;
     public AudioSource eject;
-    public float slideTime = 0.3f; // also develop time
+    public float slideTime = 3f; // also develop time
     public float devTime = 1f;
     public float holdTime = 1.5f;
 
@@ -58,10 +58,32 @@ public class PolaroidUI : MonoBehaviour
         eject.Play();
 
         float t = 0f;
-        while (t < slideTime)
+        while (t < slideTime/3)
         {
             t += Time.deltaTime;
-            rect.anchoredPosition = Vector2.Lerp(offscreenPos, onscreenPos, t / slideTime); // slide in
+            rect.anchoredPosition = Vector2.Lerp(offscreenPos, onscreenPos/3, t / slideTime); // slide in 1
+            yield return null;
+        }
+
+        eject.Pause();
+        yield return new WaitForSeconds(holdTime / 3);
+        eject.Play();
+
+        while (t < (slideTime/3)*2 && t >slideTime/3)
+        {
+            t += Time.deltaTime;
+            rect.anchoredPosition = Vector2.Lerp(offscreenPos, (onscreenPos/3)*2, t / slideTime); // slide in 2
+            yield return null;
+        }
+
+        eject.Pause();
+        yield return new WaitForSeconds(holdTime / 3);
+        eject.Play();
+
+        while (t < slideTime && t > (slideTime / 3)*2)
+        {
+            t += Time.deltaTime;
+            rect.anchoredPosition = Vector2.Lerp(offscreenPos, onscreenPos, t / slideTime); // slide in final
             yield return null;
         }
 
