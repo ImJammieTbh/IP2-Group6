@@ -14,17 +14,33 @@ public class PolaroidEjector : MonoBehaviour
     public PolaroidRenderer render;
     public PolaroidUI uiDisplay;
 
+    private LeafShutterPart[] blades;
+
     public bool isBusy = false;
+
+    void Start()
+    {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Shutter"); // this just groups everything together that's in the shutter class
+        blades = new LeafShutterPart[objs.Length];
+
+        for (int i = 0; i < objs.Length; i++)
+            blades[i] = objs[i].GetComponent<LeafShutterPart>();
+    }
+
+    public void FireShutter()
+    {
+        foreach (var blade in blades)
+            blade.Fire();
+    }
+
 
     public IEnumerator TakePhoto()
     {
         if (isBusy)
             yield break;
         isBusy = true;
-        
-        Shutter.alpha = 1f;
 
-        yield return new WaitForSeconds(0.05f);
+        FireShutter();
 
         shutterSound.volume = 0.15f;
         shutterSound.time = 2.3f;
@@ -38,10 +54,14 @@ public class PolaroidEjector : MonoBehaviour
         GameObject ui = Instantiate(polaroidPrefab, uiTransform);
         ui.GetComponent<PolaroidUI>().Init(polaroid, this);
 
-        yield return new WaitForSeconds(0.1f); // fades back in after a bit
-        Shutter.alpha = 0f;
+        yield return new WaitForSeconds(0.1f);
+        
     }
+
+
 }
+
+
 
 // OLD PHYSICAL POLAROID EJECT
 
