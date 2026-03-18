@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreText;
     
     public List<PhotoData> photos;
+    
+    public Dictionary<int, List<BirdData>> birdPhotos =  new Dictionary<int, List<BirdData>>();
 
     private void Awake()
     {
@@ -42,8 +44,6 @@ public class GameManager : MonoBehaviour
         {
             print("Target birds are empty");
         }
-
-         
     }
     
     public void UpdateScore(BirdController birdController)
@@ -54,6 +54,6 @@ public class GameManager : MonoBehaviour
 
     public void GetRecentPhoto()
     {
-        photos.Add(photoManager.LatestPhoto);
+        if (birdPhotos.ContainsKey())
     }
 }
