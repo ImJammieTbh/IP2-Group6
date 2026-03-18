@@ -8,6 +8,7 @@ using TMPro;
 public class StartMenuController : MonoBehaviour
 {
     // Tutorial referenced: https://youtu.be/paaBTt5GcMU?si=q2NMNfsy82rxqIzv
+    // Tutorial referenced: https://youtu.be/Hn804Wgr3KE?si=_mwzCvpTF7qrhE33
 
     [Header("Text")]
     public TMP_Text gameTitle;
@@ -131,6 +132,9 @@ public class StartMenuController : MonoBehaviour
         startButton.gameObject.SetActive(false);
         settingsButton.gameObject.SetActive(false);
         quitButton.gameObject.SetActive(false);
+
+
+        backButton.Select(); // selects the back button when pressing the settings button
     }
 
 
@@ -152,6 +156,9 @@ public class StartMenuController : MonoBehaviour
         startButton.gameObject.SetActive(true);
         settingsButton.gameObject.SetActive(true);
         quitButton.gameObject.SetActive(true);
+
+
+        startButton.Select(); // selects the start button when pressing the back button
     }
 
 

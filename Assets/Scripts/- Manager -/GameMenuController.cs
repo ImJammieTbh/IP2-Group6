@@ -95,6 +95,8 @@ public class GameMenuController : MonoBehaviour
             //AudioListener.volume = 0; // TEMP SOLVER, mute all sounds, because if pause when a sound effect is playing it will play the whole sound
             StopAllAudio();
 
+            resumeButton.Select();
+
             // pausing
             isPaused = true;
             Time.timeScale = 0; // stops gameplay  ,  need a way to stop camera from beng effected
@@ -197,6 +199,9 @@ public class GameMenuController : MonoBehaviour
         backButton.gameObject.SetActive(true);
 
         pauseButtons.gameObject.SetActive(false);
+
+
+        backButton.Select(); // selects the back button when pressing the settings button
     }
 
 
@@ -223,6 +228,9 @@ public class GameMenuController : MonoBehaviour
         backButton.gameObject.SetActive(false);
 
         pauseButtons.gameObject.SetActive(true);
+
+
+        resumeButton.Select(); // selects the resume button when pressing the back button
     }
 
 
