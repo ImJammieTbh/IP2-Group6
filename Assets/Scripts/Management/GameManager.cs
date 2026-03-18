@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -16,9 +17,8 @@ public class GameManager : MonoBehaviour
     
     public TMP_Text scoreText;
     
-    public List<PhotoData> photos;
-    
-    public Dictionary<int, List<BirdData>> birdPhotos =  new Dictionary<int, List<BirdData>>();
+    public Dictionary<int, List<PhotoData>> birdPhotos =  new Dictionary<int, List<PhotoData>>();
+    public bool photoReady;
 
     private void Awake()
     {
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         _scoreController = GetComponent<ScoreController>();
         
         CameraLag.OnPhotoTaken += CheckValidBird;
-        PolaroidEjector.OnEjected += GetRecentPhoto;
+        PolaroidEjector.OnEjected += PhotoEjectedCall;
     }
 
     private void FixedUpdate()
@@ -44,6 +44,10 @@ public class GameManager : MonoBehaviour
         {
             print("Target birds are empty");
         }
+        else
+        {
+            StartCoroutine(GetLatestPhotoCoroutine(shotBird));
+        }
     }
     
     public void UpdateScore(BirdController birdController)
@@ -52,8 +56,26 @@ public class GameManager : MonoBehaviour
         scoreText.text = "Score: " + _scoreController.score;
     }
 
-    public void GetRecentPhoto()
+    public void PhotoEjectedCall()
     {
-        if (birdPhotos.ContainsKey())
+        photoReady = true;
+    }
+
+    private IEnumerator GetLatestPhotoCoroutine(BirdData birdData)
+    {
+        yield return new WaitUntil(() => photoReady);
+
+        if (birdPhotos.ContainsKey(birdData.birdID))
+        {
+            birdPhotos[birdData.birdID].Add(photoManager.LatestPhoto);
+            print($"PhotoData Added: {birdData.birdID}");
+        }
+        else
+        {
+            birdPhotos.Add(birdData.birdID, new List<PhotoData>{photoManager.LatestPhoto});
+            print($"New PhotoData Added: {birdData.birdID}");
+        }
+        
+        photoReady = false;
     }
 }
