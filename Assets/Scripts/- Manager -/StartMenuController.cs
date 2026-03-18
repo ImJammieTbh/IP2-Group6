@@ -58,7 +58,7 @@ public class StartMenuController : MonoBehaviour
     public static float backgroundVol = 1;
 
     //Setting
-    public static float sensitivityVal = 50;
+    public static float sensitivityVal = 100;
     public static float fovVal = 1;
 
 
