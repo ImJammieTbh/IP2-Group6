@@ -16,7 +16,7 @@ MonoBehaviour:
   birdDescription: This is a Crow
   birdID: 6
   prefab: {fileID: 5838005586309543983, guid: 80b8effb707476c4684bfe251652b090, type: 3}
-  birdSitSprite: {fileID: 0}
+  birdSitSprite: {fileID: 21300000, guid: d40c59c36674f1d4f94b2c776efde18f, type: 3}
   spawnWeight: 60
   speed: 2.5
   biome: 2
