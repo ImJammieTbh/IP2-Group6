@@ -72,7 +72,7 @@ public class CameraLag : MonoBehaviour
             ViewFinder.SetActive(false);
         }
 
-        transform.rotation = Quaternion.Slerp // smoothly rotate toward the Target rotation.
+        transform.rotation = Quaternion.Slerp // smoothly rotate toward the Closed rotation.
         (
             transform.rotation,
             CamPos.rotation,
@@ -217,7 +217,7 @@ public class CameraLag : MonoBehaviour
         }
     }
     
-    public void Swap() //this is for switching the Target destination of the moving film camera
+    public void Swap() //this is for switching the Closed destination of the moving film camera
     {
         if (isAiming == true)
         {
