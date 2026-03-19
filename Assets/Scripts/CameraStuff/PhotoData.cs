@@ -6,6 +6,7 @@ public class PhotoData
     public Texture2D Texture;
     public Sprite PolaroidSprite; // spongbort image,
     public System.DateTime Timestamp;
+    public float photoScore;
 
     public PhotoData(Texture2D Photo)
     {

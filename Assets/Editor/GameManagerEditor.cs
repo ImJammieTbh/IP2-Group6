@@ -36,6 +36,7 @@ public class GameManagerEditor : Editor
 
                         EditorGUILayout.ObjectField(photo.Texture, typeof(Texture2D), false);
                         EditorGUILayout.ObjectField(photo.PolaroidSprite, typeof(Sprite), false);
+                        EditorGUILayout.LabelField($"Photo Score: {photo.photoScore}");
                     }
                     else
                     {

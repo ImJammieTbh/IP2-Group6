@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     
     public Dictionary<int, List<PhotoData>> birdPhotos =  new Dictionary<int, List<PhotoData>>();
     public bool photoReady;
+    
+    private float _tempPhotoScore = 0;
 
     private void Awake()
     {
@@ -46,14 +48,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(GetLatestPhotoCoroutine(shotBird));
+            StartCoroutine(ProcessLatestPhotoCoroutine(shotBird, birdController));
         }
-    }
-    
-    public void UpdateScore(BirdController birdController)
-    {
-        _scoreController.score = _scoreController.GetPhotoScore(birdController.spriteRenderer);
-        scoreText.text = "Score: " + _scoreController.score;
     }
 
     public void PhotoEjectedCall()
@@ -61,20 +57,26 @@ public class GameManager : MonoBehaviour
         photoReady = true;
     }
 
-    private IEnumerator GetLatestPhotoCoroutine(BirdData birdData)
+    private IEnumerator ProcessLatestPhotoCoroutine(BirdData birdData, BirdController birdController)
     {
         yield return new WaitUntil(() => photoReady);
+        
+        PhotoData latestPhoto = photoManager.LatestPhoto;
 
         if (birdPhotos.ContainsKey(birdData.birdID))
         {
-            birdPhotos[birdData.birdID].Add(photoManager.LatestPhoto);
+            birdPhotos[birdData.birdID].Add(latestPhoto);
             print($"PhotoData Added: {birdData.birdID}");
         }
         else
         {
-            birdPhotos.Add(birdData.birdID, new List<PhotoData>{photoManager.LatestPhoto});
+            birdPhotos.Add(birdData.birdID, new List<PhotoData>{latestPhoto});
             print($"New PhotoData Added: {birdData.birdID}");
         }
+        
+        float tempScore = _scoreController.GetPhotoScore(birdController.spriteRenderer);
+        
+        latestPhoto.photoScore = tempScore;
         
         photoReady = false;
     }

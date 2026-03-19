@@ -47,6 +47,10 @@ public class ScoreController : MonoBehaviour
             (sizeScore * sizeWeight) +
             (centreScore * centreWeight);
 
-        return Mathf.Clamp(finalScore, 0f, 100f);
+        float clampedScore = Mathf.Clamp(finalScore, 0f, 100f);
+        
+        float scoreOutOf10 = clampedScore / 10f;
+        
+        return (float)Math.Round(scoreOutOf10, 1);
     }
 }
