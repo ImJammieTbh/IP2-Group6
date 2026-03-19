@@ -25,7 +25,7 @@ public class BirdController : MonoBehaviour
 
     private Sprite _birdSit;
     private Sprite _birdFly;
-    private BirdData _birdData;
+    public BirdData birdData;
     private BirdBrain _brain;
     private BirdSpawn.YConstrains _yConstrains;
     public List<LandingSpotGroup> landingGroups = new List<LandingSpotGroup>();
@@ -43,7 +43,7 @@ public class BirdController : MonoBehaviour
         birdName = data.birdName;
         _birdFly = spriteRenderer.sprite;
         _birdSit = data.birdSitSprite;
-        _birdData = data;
+        birdData = data;
         _yConstrains = yConstrains;
         gameObject.name = $"{birdName} | ID: {birdID}";
         print($"Initialized Bird Data {birdName}");
@@ -92,7 +92,7 @@ public class BirdController : MonoBehaviour
         {
             if (!_hasLanded && _brain.WillLand())
             {
-                var landSpot = _brain.ChooseNextLandingSpot(landingGroups, birdID, _birdData.allowedLandingTypes);
+                var landSpot = _brain.ChooseNextLandingSpot(landingGroups, birdID, birdData.allowedLandingTypes);
                 if (landSpot == null)
                 {
                     Debug.Log($"Bird: {birdID} wanted to land but there were no spots.");

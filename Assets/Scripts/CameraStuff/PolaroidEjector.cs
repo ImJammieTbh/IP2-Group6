@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -17,6 +18,8 @@ public class PolaroidEjector : MonoBehaviour
     private LeafShutterPart[] blades;
 
     public bool isBusy = false;
+
+    public static event Action OnEjected;
 
     void Start()
     {
@@ -54,8 +57,10 @@ public class PolaroidEjector : MonoBehaviour
         GameObject ui = Instantiate(polaroidPrefab, uiTransform);
         ui.GetComponent<PolaroidUI>().Init(polaroid, this);
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
+        OnEjected?.Invoke();
         
+        yield return new WaitForSeconds(0.1f);
     }
 
 
