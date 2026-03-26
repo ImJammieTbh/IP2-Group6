@@ -15,6 +15,7 @@ MonoBehaviour:
   birdName: Swan
   birdDescription: This is a swan
   birdID: 5
+  birdSize: 2
   prefab: {fileID: 5838005586309543983, guid: 85923e2c77685d84081934aa78acf7f5, type: 3}
   birdSitSprite: {fileID: 0}
   spawnWeight: 40

@@ -15,6 +15,7 @@ MonoBehaviour:
   birdName: Goose
   birdDescription: This is a goose
   birdID: 7
+  birdSize: 2
   prefab: {fileID: 5838005586309543983, guid: 6f2084c529fd25a4c8a8049897741b4d, type: 3}
   birdSitSprite: {fileID: 0}
   spawnWeight: 52
