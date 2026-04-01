@@ -10,6 +10,11 @@ public class GameMenuController : MonoBehaviour
     [Header("Text")]
     public TMP_Text pauseText;
 
+    [Header("background")]
+    public GameObject menuBackground;
+    public GameObject settingsBackground;
+
+
     // settings
     public TMP_Text fovValue;
     public TMP_Text sensitivityValue;
@@ -59,7 +64,11 @@ public class GameMenuController : MonoBehaviour
    // Setting all assets as inactive
     void Start()
     {
-        //text
+        //Background
+        menuBackground.gameObject.SetActive(false);
+        settingsBackground.gameObject.SetActive(false);
+
+        //Text
         pauseText.gameObject.SetActive(false);
 
         //Volune
@@ -107,6 +116,7 @@ public class GameMenuController : MonoBehaviour
 
             pauseText.gameObject.SetActive(true); // pause text
             pauseButtons.gameObject.SetActive(true); // pause menu buttons
+            menuBackground.gameObject.SetActive(true);
         }
         else if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) && isPaused == true) //unpausing
         {
@@ -130,6 +140,10 @@ public class GameMenuController : MonoBehaviour
             //Buttons
             pauseButtons.gameObject.SetActive(false);
             backButton.gameObject.SetActive(false);
+
+            //Background
+            menuBackground.gameObject.SetActive(false);
+            settingsBackground.gameObject.SetActive(false);
         }
 
         //Volume 
@@ -181,6 +195,9 @@ public class GameMenuController : MonoBehaviour
         //Buttons
         pauseButtons.gameObject.SetActive(false);
         backButton.gameObject.SetActive(false);
+
+        //Background
+        menuBackground.gameObject.SetActive(false);
     }
 
     //SETTINGS
@@ -200,6 +217,9 @@ public class GameMenuController : MonoBehaviour
 
         pauseButtons.gameObject.SetActive(false);
 
+        //Background
+        menuBackground.gameObject.SetActive(false);
+        settingsBackground.gameObject.SetActive(true);
 
         backButton.Select(); // selects the back button when pressing the settings button
     }
@@ -228,6 +248,10 @@ public class GameMenuController : MonoBehaviour
         backButton.gameObject.SetActive(false);
 
         pauseButtons.gameObject.SetActive(true);
+
+        //Background
+        menuBackground.gameObject.SetActive(true);
+        settingsBackground.gameObject.SetActive(false);
 
 
         resumeButton.Select(); // selects the resume button when pressing the back button
