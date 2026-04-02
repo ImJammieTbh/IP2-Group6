@@ -257,6 +257,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1629151911}
     - target: {fileID: 7763699256336154198, guid: bd86024feb0f55240a36890dad8fca01, type: 3}
+      propertyPath: maxX
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763699256336154198, guid: bd86024feb0f55240a36890dad8fca01, type: 3}
       propertyPath: sensitivity
       value: 400
       objectReference: {fileID: 0}
@@ -1697,7 +1701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4691370707024570395, guid: ac046a5dd93f38344bbd2a97c2962444, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7300721184837691831, guid: ac046a5dd93f38344bbd2a97c2962444, type: 3}
       propertyPath: m_Pivot.x
@@ -2321,11 +2325,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285363996}
   m_CullTransparentMesh: 1
---- !u!224 &287011853 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3005532394461279453, guid: b9d379d388ac597469b98f88630123df, type: 3}
-  m_PrefabInstance: {fileID: 758498972}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &294916398 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3005532394461279453, guid: b9d379d388ac597469b98f88630123df, type: 3}
@@ -2544,6 +2543,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 304696657}
   m_CullTransparentMesh: 1
+--- !u!224 &311571457 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3005532394461279453, guid: b9d379d388ac597469b98f88630123df, type: 3}
+  m_PrefabInstance: {fileID: 1082552788}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &327324753
 GameObject:
   m_ObjectHideFlags: 0
@@ -5909,10 +5913,9 @@ RectTransform:
   - {fileID: 437967293}
   - {fileID: 1224507755}
   - {fileID: 1610068350}
-  - {fileID: 287011853}
   - {fileID: 294916398}
-  - {fileID: 2070620649}
   - {fileID: 748019748}
+  - {fileID: 311571457}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10530,6 +10533,5 @@ SceneRoots:
   - {fileID: 161374202}
   - {fileID: 1665307718}
   - {fileID: 659455495}
-  - {fileID: 848374310}
   - {fileID: 864433011}
   - {fileID: 272936753}
