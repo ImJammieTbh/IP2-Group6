@@ -1,11 +1,12 @@
 
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LimitedLook : MonoBehaviour
 {
     public Transform Cam;
 
-    public float sensitivity = 200f;
+    public float sensitivity = 400f;
 
     public float maxX;
     public float maxY;
@@ -18,6 +19,8 @@ public class LimitedLook : MonoBehaviour
     public float shakeSpeed = 0.005f; // really really slow, if you want something funny just turn this up to anything higher than this lmao (epilepsy warning ofc)
 
     private float shakeTime = 0f;
+
+    public Slider sensitivitySlider;
 
     void Start()
     {
@@ -33,8 +36,8 @@ public class LimitedLook : MonoBehaviour
         float joystickX = Input.GetAxisRaw("RightStickX"); //gets right joystick x n y 
         float joystickY = -Input.GetAxisRaw("RightStickY");
 
-        float finalX = (joystickX + mouseX) * sensitivity * Time.deltaTime; // combines to allow for easy switch
-        float finalY = (joystickY + mouseY) * sensitivity * Time.deltaTime;
+        float finalX = (joystickX + mouseX) * (sensitivity * (sensitivitySlider.value / 100)) * Time.deltaTime; // combines to allow for easy switch
+        float finalY = (joystickY + mouseY) * (sensitivity * (sensitivitySlider.value / 100)) * Time.deltaTime;
 
         yRotation += finalX;
         xRotation -= finalY;
