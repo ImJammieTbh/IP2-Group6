@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
     public bool photoReady;
     
     private float _tempPhotoScore = 0;
+    
+    public List<Transform> wantedBoardPositions = new List<Transform>();
+    private GameObject[] taggedPos;
+    public GameObject targetHint;
 
     private void Awake()
     {
@@ -29,6 +33,15 @@ public class GameManager : MonoBehaviour
         
         CameraLag.OnPhotoTaken += CheckValidBird;
         PolaroidEjector.OnEjected += PhotoEjectedCall;
+        
+        taggedPos = GameObject.FindGameObjectsWithTag("targetBirdSlot");
+        
+        Init();
+    }
+
+    private void Start()
+    {
+        StartCoroutine(TargetsHintCoroutine());
     }
 
     private void FixedUpdate()
@@ -37,6 +50,46 @@ public class GameManager : MonoBehaviour
         {
             birdsCaptured = true;
             print("Birds captured --- Level Complete");
+        }
+    }
+
+    public void Init()
+    {
+        foreach (var obj in taggedPos)
+        {
+            if (!wantedBoardPositions.Contains(obj.transform))
+            {
+                wantedBoardPositions.Add(obj.transform);
+            }
+        }
+        
+        for (int i = 0; i < targetBirds.Count; i++)//Display target birds on board
+        {
+            GameObject displayBird = Instantiate(targetBirds[i].prefab, wantedBoardPositions[i].position, Quaternion.Euler(0,90,0));
+            
+            var bc = displayBird.GetComponent<BirdController>();
+            var bb = displayBird.GetComponent<BirdBrain>();
+            var anim = displayBird.GetComponent<Animator>();
+            var box = displayBird.GetComponent<BoxCollider>();
+
+            bc.enabled = bb.enabled = anim.enabled = box.enabled = false;
+            
+            switch (targetBirds[i].birdSize)//adjust scale per size of bird
+            {
+                case BirdData.BirdSize.Small:
+                    displayBird.transform.localScale *= 0.5f;
+                    break;
+                
+                case BirdData.BirdSize.Medium:
+                    displayBird.transform.localScale *= 0.3f;
+                    break;
+                
+                case BirdData.BirdSize.Large:
+                    displayBird.transform.localScale *= 0.2f;
+                    break;
+            }
+            
+            displayBird.transform.SetParent(wantedBoardPositions[i]);
         }
     }
 
@@ -79,5 +132,16 @@ public class GameManager : MonoBehaviour
         latestPhoto.photoScore = tempScore;
         
         photoReady = false;
+    }
+    
+    private IEnumerator TargetsHintCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        
+        targetHint.SetActive(true);
+        
+        yield return new WaitForSeconds(10f);
+        
+        targetHint.SetActive(false);
     }
 }

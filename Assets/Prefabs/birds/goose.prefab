@@ -146,6 +146,7 @@ MonoBehaviour:
   _hasLanded: 0
   leftSpawn: {x: 0, y: 0, z: 0}
   rightSpawn: {x: 0, y: 0, z: 0}
+  birdData: {fileID: 0}
   landingGroups: []
 --- !u!114 &914773004864867708
 MonoBehaviour:
@@ -171,7 +172,7 @@ Animator:
   m_GameObject: {fileID: 5838005586309543983}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 55f72c4b2c011d44998d874b38d52ffc, type: 2}
+  m_Controller: {fileID: 9100000, guid: a61e6aab30e91d243988b21c162bfe39, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

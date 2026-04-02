@@ -110,7 +110,7 @@ public class StartMenuController : MonoBehaviour
     //START GAME
     public void OnStartClick()
     {
-        SceneManager.LoadScene("DemoV1 with 3D"); // Moves to the scene named in the brackets
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // Moves to the scene named in the brackets
     }
 
 

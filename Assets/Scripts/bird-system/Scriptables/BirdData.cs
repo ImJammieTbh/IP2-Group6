@@ -11,11 +11,19 @@ public class BirdData : ScriptableObject
         Biome2,
         Biome3
     }
+
+    public enum BirdSize
+    {
+        Small,
+        Medium,
+        Large
+    }
     
     [Header("Information")]
     public string birdName;
     public string birdDescription;
     public int birdID;
+    public BirdSize birdSize;
     
     [Header("Prefab")]
     public GameObject prefab;
