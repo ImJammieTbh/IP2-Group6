@@ -54,14 +54,16 @@ public class GameMenuController : MonoBehaviour
     public Button backButton;
 
     [Header("Pausing")]
-    bool isPaused = false;
+    public bool isPaused = false;
     public GameObject cameraObject; // disables the camera so it doesn't block the menu
     //stop all audio when paused, source: https://discussions.unity.com/t/how-to-stop-all-audio/32919
     private AudioSource[] allAudioSources;
+    public BirdEmitter birdSounds;
 
-  
- 
-   // Setting all assets as inactive
+
+
+
+    // Setting all assets as inactive
     void Start()
     {
         //Background
@@ -144,6 +146,8 @@ public class GameMenuController : MonoBehaviour
             //Background
             menuBackground.gameObject.SetActive(false);
             settingsBackground.gameObject.SetActive(false);
+
+            birdSounds.quackCoolDown = 0;
         }
 
         //Volume 
