@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/StartOfDay.unity
     guid: b2d31661f09d6eb4cb46ed743f70d8ee
   - enabled: 1
-    path: Assets/Scenes/DemoV1 with 3D testing.unity
+    path: Assets/Scenes/OUT OF DATE/DemoV1 with 3D testing.unity
     guid: 62e86129e01d3614294e4bfee2081bdb
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

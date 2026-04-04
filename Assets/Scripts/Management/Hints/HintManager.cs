@@ -14,10 +14,13 @@ public class HintManager : MonoBehaviour
     private float _idleTimer;
 
     private Quaternion _lastPlayerRotation;
+    private CameraLag _cameraLag;
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
         _lastPlayerRotation = _player.transform.rotation;
+        
+        _cameraLag = GameObject.Find("CamHolder").GetComponent<CameraLag>();
     }
 
     private void Update()
@@ -30,16 +33,25 @@ public class HintManager : MonoBehaviour
         {
             lookHint.SetActive(false);
         }
+
+        if (!_cameraLag.isAiming)
+        {
+            viewHint.SetActive(true);
+        }
+        else 
+        {
+            viewHint.SetActive(false);
+        }
     }
 
     private bool HasRotationBeenIdle()
     {
-        float angleDifference = Quaternion.Angle(transform.rotation, _lastPlayerRotation);
+        float angleDifference = Quaternion.Angle(_player.transform.rotation, _lastPlayerRotation);
 
         if (angleDifference > 2f)
         {
             _idleTimer = 0f;
-            _lastPlayerRotation = transform.rotation;
+            _lastPlayerRotation = _player.transform.rotation;
             return false;
         }
 

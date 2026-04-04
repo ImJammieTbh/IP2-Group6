@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using bird_system;
 using TMPro;
 using UnityEngine;
 
@@ -25,6 +26,10 @@ public class GameManager : MonoBehaviour
     public List<Transform> wantedBoardPositions = new List<Transform>();
     private GameObject[] taggedPos;
     public GameObject targetHint;
+
+    private BirdSpawnTable _birdSpawnTable;
+
+    public List<BirdData> tempList;
 
     private void Awake()
     {
@@ -55,6 +60,8 @@ public class GameManager : MonoBehaviour
 
     public void Init()
     {
+        tempList = _birdSpawnTable.GetRandomBirdsNoWeight(3);
+        
         foreach (var obj in taggedPos)
         {
             if (!wantedBoardPositions.Contains(obj.transform))
