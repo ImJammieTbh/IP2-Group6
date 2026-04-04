@@ -3011,6 +3011,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1740345439}
     - target: {fileID: 4017167606323875949, guid: f4c8cc12d6b25eb4f907967caed1513d, type: 3}
+      propertyPath: coolDownMax
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4017167606323875949, guid: f4c8cc12d6b25eb4f907967caed1513d, type: 3}
+      propertyPath: coolDownMin
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4017167606323875949, guid: f4c8cc12d6b25eb4f907967caed1513d, type: 3}
       propertyPath: quackSoundClips.Array.size
       value: 7
       objectReference: {fileID: 0}

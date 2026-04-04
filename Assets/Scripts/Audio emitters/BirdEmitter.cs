@@ -18,6 +18,7 @@ public class BirdEmitter : MonoBehaviour
     public float coolDownStrength = 1f;
     public float coolDownMin = 5f;
     public float coolDownMax = 10f;
+    public float birdVolume = 1f;
 
 
     void Update()
@@ -74,7 +75,7 @@ public class BirdEmitter : MonoBehaviour
         //quacking
         if (quackCoolDown <= 0)
         {
-            birdManager.PlayRandomBirdSoundClip(quackSoundClips, transform, 0.5f);
+            birdManager.PlayRandomBirdSoundClip(quackSoundClips, transform, birdVolume);
 
             quackCoolDown = Random.Range(coolDownMin,coolDownMax);
         }
