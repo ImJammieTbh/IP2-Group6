@@ -7,6 +7,9 @@ using TMPro;
 
 public class GameMenuController : MonoBehaviour
 {
+    [Header("UI")]
+    public GameObject crosshair;
+
     [Header("Text")]
     public TMP_Text pauseText;
 
@@ -59,7 +62,7 @@ public class GameMenuController : MonoBehaviour
     //stop all audio when paused, source: https://discussions.unity.com/t/how-to-stop-all-audio/32919
     private AudioSource[] allAudioSources;
     public BirdEmitter birdSounds;
-
+    public AudioSource radioMusic; //starts playing once unpaused
 
 
 
@@ -119,6 +122,9 @@ public class GameMenuController : MonoBehaviour
             pauseText.gameObject.SetActive(true); // pause text
             pauseButtons.gameObject.SetActive(true); // pause menu buttons
             menuBackground.gameObject.SetActive(true);
+
+            //UI
+            crosshair.gameObject.SetActive(false);
         }
         else if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) && isPaused == true) //unpausing
         {
@@ -147,7 +153,13 @@ public class GameMenuController : MonoBehaviour
             menuBackground.gameObject.SetActive(false);
             settingsBackground.gameObject.SetActive(false);
 
+            //Audio
             birdSounds.quackCoolDown = 0;
+            radioMusic.Play();
+
+            //UI
+            crosshair.gameObject.SetActive(true);
+
         }
 
         //Volume 

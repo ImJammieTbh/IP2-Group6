@@ -21,6 +21,8 @@ public class Radio : MonoBehaviour, IInteractable
         else
         {
             musicVolume.value = currentVolume;
+
+            isOn = true;
         }
     }
 }
