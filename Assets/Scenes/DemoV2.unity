@@ -189,7 +189,7 @@ PrefabInstance:
       objectReference: {fileID: 1897512318}
     - target: {fileID: 4738387121626599508, guid: bd86024feb0f55240a36890dad8fca01, type: 3}
       propertyPath: maxZoom
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4738387121626599508, guid: bd86024feb0f55240a36890dad8fca01, type: 3}
       propertyPath: minZoom

@@ -31,6 +31,8 @@ public class CameraLag : MonoBehaviour
     private float SavedFOV;
     public float maxZoom;
     public float minZoom;
+    private bool dpadup;
+    private bool dpaddown;
 
     public int pics;
     public bool maxPicsReached;
@@ -53,8 +55,12 @@ public class CameraLag : MonoBehaviour
         _actions.Player.Photo.performed += _ => RightTriggerToggle(); //event for the taking photo ( right trigger )
         _actions.Player.Photo.canceled += _ => RightTriggerToggle();
 
-        _actions.Player.ZoomIn.performed += _ => PlusZoom();
-        _actions.Player.ZoomOut.performed += _ => MinusZoom();
+        _actions.Player.ZoomIn.started += _ => dpadup = true;
+        _actions.Player.ZoomIn.canceled += _ => dpadup = false;
+
+        _actions.Player.ZoomOut.started += _ => dpaddown = true;
+        _actions.Player.ZoomOut.canceled += _ => dpaddown = false;
+
     }
 
     public void Start()
@@ -136,12 +142,14 @@ public class CameraLag : MonoBehaviour
             }
             shaker.shakeActive = true;
         }
-        
-        if (isAiming && Input.GetKeyDown(KeyCode.E) && CurrentFOV >= maxZoom) // mind this is FOV, so maxZoom will be smaller than minZoom.
+
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+        if (isAiming && scroll >0f && CurrentFOV >= maxZoom || isAiming && dpadup && CurrentFOV >= maxZoom) // mind this is FOV, so maxZoom will be smaller than minZoom.
         {
             PlusZoom();
         }
-        if (isAiming && Input.GetKeyDown(KeyCode.Q) && CurrentFOV <= minZoom)
+        if (isAiming && scroll <0f && CurrentFOV <= minZoom || isAiming && dpaddown && CurrentFOV >= maxZoom)
         {
             MinusZoom();
         }
@@ -162,7 +170,8 @@ public class CameraLag : MonoBehaviour
 
     public void Update()
     {
-        // shooting stuff
+        // SHOOTING STUFF!!!!!!!!!!!
+
         if (FilmCam.transform.position == Target.position && isAiming && (Input.GetKeyDown(KeyCode.Mouse0) || _rightTriggerDown) && !Ejector.isBusy && maxPicsReached == false) // you should totally spam lmb with an autoclicker it's very fun for your pc
         {
             Ray ray = Cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
@@ -194,8 +203,6 @@ public class CameraLag : MonoBehaviour
             }
         }
     }
-
-    // FUNNY LITTLE EXTRA THINGS THAT HELP WITH AIMING
 
     public float Evaluate(float x)
     {
