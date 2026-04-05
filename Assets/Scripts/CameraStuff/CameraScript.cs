@@ -32,6 +32,9 @@ public class CameraLag : MonoBehaviour
     public float maxZoom;
     public float minZoom;
 
+    public int pics;
+    public bool maxPicsReached;
+
     private InputSystem_Actions _actions;
     private bool _leftTriggerDown;
     private bool _rightTriggerDown;
@@ -58,6 +61,7 @@ public class CameraLag : MonoBehaviour
     {
         Current = Resting;
         Target = Aiming;
+        maxPicsReached = false;
     }
     public void LateUpdate()
     {
@@ -159,7 +163,7 @@ public class CameraLag : MonoBehaviour
     public void Update()
     {
         // shooting stuff
-        if (FilmCam.transform.position == Target.position && isAiming && (Input.GetKeyDown(KeyCode.Mouse0) || _rightTriggerDown) && !Ejector.isBusy) // you should totally spam lmb with an autoclicker it's very fun for your pc
+        if (FilmCam.transform.position == Target.position && isAiming && (Input.GetKeyDown(KeyCode.Mouse0) || _rightTriggerDown) && !Ejector.isBusy && maxPicsReached == false) // you should totally spam lmb with an autoclicker it's very fun for your pc
         {
             Ray ray = Cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             RaycastHit hit;
@@ -169,9 +173,16 @@ public class CameraLag : MonoBehaviour
                 if (hit.collider.CompareTag("Bird"))
                 {
                     print("I miss my wife"); // future voiceline mechanic? very important story telling dialogue.
+                    pics++;
+
                     if (OnPhotoTaken != null)
                         OnPhotoTaken.Invoke(hit.collider.gameObject.GetComponent<BirdController>().birdData, hit.collider.gameObject.GetComponent<BirdController>());
                     StartCoroutine(Ejector.TakePhoto());
+
+                    if (pics >= 10f)
+                    {
+                        maxPicsReached = true;
+                    }
                 }
 
                 // or maybe check for a component Jamie adds to the birds
