@@ -4,6 +4,8 @@ using UnityEditor;
 [CustomEditor(typeof(GameManager))]
 public class GameManagerEditor : Editor
 {
+    private bool photosFoldout;
+    
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
@@ -17,36 +19,40 @@ public class GameManagerEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Photos [Debug View]", EditorStyles.boldLabel);
 
-        foreach (var kvp in gameManager.birdPhotos)
+        photosFoldout = EditorGUILayout.Foldout(photosFoldout, "Photos");
+        if (photosFoldout)
         {
-            EditorGUILayout.BeginVertical("box");
-            EditorGUILayout.LabelField($"ID: {kvp.Key}");
-
-            if (kvp.Value != null)
+            foreach (var kvp in gameManager.birdPhotos)
             {
-                EditorGUILayout.LabelField($"Photo Count: {kvp.Value.Count}");
+                EditorGUILayout.BeginVertical("box");
+                EditorGUILayout.LabelField($"ID: {kvp.Key}");
 
-                foreach (var photo in kvp.Value)
+                if (kvp.Value != null)
                 {
-                    EditorGUILayout.BeginVertical("box");
+                    EditorGUILayout.LabelField($"Photo Count: {kvp.Value.Count}");
 
-                    if (photo != null)
+                    foreach (var photo in kvp.Value)
                     {
-                        EditorGUILayout.LabelField("Photo Data");
+                        EditorGUILayout.BeginVertical("box");
 
-                        EditorGUILayout.ObjectField(photo.Texture, typeof(Texture2D), false);
-                        EditorGUILayout.ObjectField(photo.PolaroidSprite, typeof(Sprite), false);
-                        EditorGUILayout.LabelField($"Photo Score: {photo.photoScore}");
-                    }
-                    else
-                    {
-                        EditorGUILayout.LabelField("Null Photo");
-                    }
+                        if (photo != null)
+                        {
+                            EditorGUILayout.LabelField("Photo Data");
 
-                    EditorGUILayout.EndVertical();
+                            EditorGUILayout.ObjectField(photo.Texture, typeof(Texture2D), false);
+                            EditorGUILayout.ObjectField(photo.PolaroidSprite, typeof(Sprite), false);
+                            EditorGUILayout.LabelField($"Photo Score: {photo.photoScore}");
+                        }
+                        else
+                        {
+                            EditorGUILayout.LabelField("Null Photo");
+                        }
+
+                        EditorGUILayout.EndVertical();
+                    }
                 }
+                EditorGUILayout.EndVertical();
             }
-            EditorGUILayout.EndVertical();
         }
     }
 }

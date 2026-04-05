@@ -55,7 +55,7 @@ public class LimitedLook : MonoBehaviour
         Quaternion shakeRotate = Quaternion.identity; // adds shake if active
         if (shakeActive)
         {
-            print("shakeActive");
+            //print("shakeActive");
             shakeTime += Time.deltaTime * (shakeSpeed/60);
 
             float shakeX = (Mathf.PerlinNoise(shakeTime, 0f) - 0.5f) * shakeIntensity;

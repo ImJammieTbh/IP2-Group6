@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 103918376355831996}
   - component: {fileID: 7326263473721772741}
   - component: {fileID: 6902209733934032186}
+  - component: {fileID: 3288032353392020334}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45,7 +46,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a1b02028d9a68449c66becdb37490c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
+  photoManager: {fileID: 0}
+  birdsCaptured: 0
+  targetBirds:
+  - {fileID: 11400000, guid: 753967a8277fc5c4ebe93487bb5edb26, type: 2}
+  - {fileID: 11400000, guid: 8cfd250b30293714783bfdd2d56ce912, type: 2}
+  - {fileID: 11400000, guid: b5a5a240eb57dc54b958e04f989f26bf, type: 2}
+  wantedBoardPositions: []
+  targetHint: {fileID: 0}
+  endDay: {fileID: 0}
+  starVersions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &6902209733934032186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,11 +74,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6aa21e29111b764dbc30f2da37a4454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetBirds:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   score: 0
   photoCamera: {fileID: 0}
   sizeWeight: 60
   centreWeight: 40
+--- !u!114 &3288032353392020334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4700638278521884391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd1ff7311bc6b544bb9fa105ce9f1ebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewHint: {fileID: 0}
+  lookHint: {fileID: 0}
+  zoomHint: {fileID: 0}
+  captureHint: {fileID: 0}
+  idleTimerMax: 10

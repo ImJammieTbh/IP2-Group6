@@ -46,27 +46,27 @@ namespace bird_system
             return validBirds[0];
         }
 
-        public List<BirdData> GetRandomBirdsNoWeight(int numWanted)
-        {
-            if (birds == null || birds.Count == 0 || numWanted <= 0)
-                return new List<BirdData>();
-
-            // If asking for more than available, just return all shuffled
-            if (numWanted >= birds.Count)
-                return birds.OrderBy(x => Random.value).ToList();
-
-            // Create a copy so we don’t modify the original list
-            List<BirdData> pool = new List<BirdData>(birds);
-            List<BirdData> result = new List<BirdData>();
-
-            for (int i = 0; i < numWanted; i++)
-            {
-                int index = Random.Range(0, pool.Count);
-                result.Add(pool[index]);
-                pool.RemoveAt(index); // ensures no duplicates
-            }
-
-            return result;
-        }
+        // public List<BirdData> GetRandomBirdsNoWeight(int numWanted)
+        // {
+        //     if (birds == null || birds.Count == 0 || numWanted <= 0)
+        //         return new List<BirdData>();
+        //
+        //     // If asking for more than available, just return all shuffled
+        //     if (numWanted >= birds.Count)
+        //         return birds.OrderBy(x => Random.value).ToList();
+        //
+        //     // Create a copy so we don’t modify the original list
+        //     List<BirdData> pool = new List<BirdData>(birds);
+        //     List<BirdData> result = new List<BirdData>();
+        //
+        //     for (int i = 0; i < numWanted; i++)
+        //     {
+        //         int index = Random.Range(0, pool.Count);
+        //         result.Add(pool[index]);
+        //         pool.RemoveAt(index); // ensures no duplicates
+        //     }
+        //
+        //     return result;
+        // }
     }
 }
