@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PolaroidEjector : MonoBehaviour
 {
-    public CanvasGroup Shutter; // this is the shutter. technically the current polaroid camera (seen during presentation) is not an slr, so there's not actually any blackout from the shutter.
+    //public CanvasGroup Shutter; 
     public AudioSource shutterSound; // haven't found/made the sounds yet
     public GameObject polaroidPrefab; // world or UI version
     public Transform uiTransform;
@@ -15,7 +15,7 @@ public class PolaroidEjector : MonoBehaviour
     public PolaroidRenderer render;
     public PolaroidUI uiDisplay;
 
-    private LeafShutterPart[] blades;
+    public Animator shutterAnim; // this is the shutter. technically the current polaroid camera (seen during presentation) is not an slr, so there's not actually any blackout from the shutter.
 
     public bool isBusy = false;
 
@@ -23,17 +23,12 @@ public class PolaroidEjector : MonoBehaviour
 
     void Start()
     {
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("Shutter"); // this just groups everything together that's in the shutter class
-        blades = new LeafShutterPart[objs.Length];
 
-        for (int i = 0; i < objs.Length; i++)
-            blades[i] = objs[i].GetComponent<LeafShutterPart>();
     }
 
     public void FireShutter()
     {
-        foreach (var blade in blades)
-            blade.Fire();
+        shutterAnim.Play("ShutterAnim", -1, 0f);
     }
 
 
