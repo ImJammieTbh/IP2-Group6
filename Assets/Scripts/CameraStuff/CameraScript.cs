@@ -145,13 +145,22 @@ public class CameraLag : MonoBehaviour
 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
 
-        if (isAiming && scroll >0f && CurrentFOV >= maxZoom || isAiming && dpadup && CurrentFOV >= maxZoom) // mind this is FOV, so maxZoom will be smaller than minZoom.
+        if (isAiming && scroll >0f && CurrentFOV >= maxZoom) // mind this is FOV, so maxZoom will be smaller than minZoom.
         {
             PlusZoom();
         }
-        if (isAiming && scroll <0f && CurrentFOV <= minZoom || isAiming && dpaddown && CurrentFOV >= maxZoom)
+        if (isAiming && dpadup && CurrentFOV >= maxZoom)
+        {
+            PlusZoom2();
+        }
+
+        if (isAiming && scroll <0f && CurrentFOV <= minZoom)
         {
             MinusZoom();
+        }
+        if (isAiming && dpaddown && CurrentFOV <= minZoom)
+        {
+            MinusZoom2();
         }
 
         sinTime = Mathf.Clamp(sinTime, 0, Mathf.PI);
@@ -313,6 +322,22 @@ public class CameraLag : MonoBehaviour
         if (isAiming && CurrentFOV <= minZoom)
         {
             TargetFOV = CurrentFOV + 5f;
+        }
+    }
+
+    public void PlusZoom2()
+    {
+        if (isAiming && CurrentFOV >= maxZoom) // this is also a separate one that adds/takes away less to the fov since the controller one is different.
+        {
+            TargetFOV = CurrentFOV - 1f;
+        }
+    }
+
+    public void MinusZoom2()
+    {
+        if (isAiming && CurrentFOV <= minZoom)
+        {
+            TargetFOV = CurrentFOV + 1f;
         }
     }
 }
