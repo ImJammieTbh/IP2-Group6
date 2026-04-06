@@ -4,6 +4,7 @@ using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 public class CameraLag : MonoBehaviour
@@ -40,6 +41,9 @@ public class CameraLag : MonoBehaviour
     private InputSystem_Actions _actions;
     private bool _leftTriggerDown;
     private bool _rightTriggerDown;
+
+    public Text FrameCounter;
+    private float FramesLeft;
 
     public static event Action<BirdData, BirdController> OnPhotoTaken;
 
@@ -181,6 +185,9 @@ public class CameraLag : MonoBehaviour
     {
         // SHOOTING STUFF!!!!!!!!!!!
 
+        FramesLeft = (10f - pics);
+        FrameCounter.text = ("" + FramesLeft);
+
         if (FilmCam.transform.position == Target.position && isAiming && (Input.GetKeyDown(KeyCode.Mouse0) || _rightTriggerDown) && !Ejector.isBusy && maxPicsReached == false) // you should totally spam lmb with an autoclicker it's very fun for your pc
         {
             Ray ray = Cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
@@ -196,6 +203,8 @@ public class CameraLag : MonoBehaviour
                     if (OnPhotoTaken != null)
                         OnPhotoTaken.Invoke(hit.collider.gameObject.GetComponent<BirdController>().birdData, hit.collider.gameObject.GetComponent<BirdController>());
                     StartCoroutine(Ejector.TakePhoto());
+
+                    
 
                     if (pics >= 10f)
                     {
