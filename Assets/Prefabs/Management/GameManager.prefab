@@ -48,10 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   photoManager: {fileID: 0}
   birdsCaptured: 0
-  targetBirds:
-  - {fileID: 11400000, guid: 753967a8277fc5c4ebe93487bb5edb26, type: 2}
-  - {fileID: 11400000, guid: 8cfd250b30293714783bfdd2d56ce912, type: 2}
-  - {fileID: 11400000, guid: b5a5a240eb57dc54b958e04f989f26bf, type: 2}
+  targetBirdsCount: 3
+  targetBirds: []
   wantedBoardPositions: []
   targetHint: {fileID: 0}
   endDay: {fileID: 0}
@@ -62,6 +60,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  polaroidPositions: []
+  polaroidPrefab: {fileID: 0}
 --- !u!114 &6902209733934032186
 MonoBehaviour:
   m_ObjectHideFlags: 0

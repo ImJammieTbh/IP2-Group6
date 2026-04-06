@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using bird_system;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +15,7 @@ public class GameManager : MonoBehaviour
     public PhotoManager photoManager;
 
     public bool birdsCaptured;
+    public int targetBirdsCount;
     public List<BirdData> targetBirds;
     private HashSet<BirdData> capturedBirds = new HashSet<BirdData>();
     
@@ -24,7 +28,7 @@ public class GameManager : MonoBehaviour
     private GameObject[] taggedPos;
     public GameObject targetHint;
 
-    private BirdSpawnTable _birdSpawnTable;
+    [SerializeField]private BirdSpawnTable birdSpawnTable;
 
     // public List<BirdData> tempList;
     
@@ -33,10 +37,12 @@ public class GameManager : MonoBehaviour
     public List<GameObject> starVersions;
     public List<Transform> polaroidPositions;
     public GameObject polaroidPrefab;
+    public TMP_Text endDayScoreText;
+    
+    private BirdData _lastBird;
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         _scoreController = GetComponent<ScoreController>();
         
         CameraLag.OnPhotoTaken += CheckValidBird;
@@ -45,6 +51,13 @@ public class GameManager : MonoBehaviour
         CameraLag.OnPhotosUsed += EndDay;
         
         taggedPos = GameObject.FindGameObjectsWithTag("targetBirdSlot");
+        
+        for (int index = 0; index < targetBirdsCount; index++)
+        {
+            BirdData data = birdSpawnTable.GetRandomBird(false, _lastBird);
+            targetBirds.Add(data);
+            _lastBird = data;
+        }
         
         Init();
     }
@@ -65,8 +78,6 @@ public class GameManager : MonoBehaviour
 
     public void Init()
     {
-        // tempList = _birdSpawnTable.GetRandomBirdsNoWeight(3);
-        
         foreach (var obj in taggedPos)
         {
             if (!wantedBoardPositions.Contains(obj.transform))
@@ -160,11 +171,11 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(EndDayCoroutine());
     }
-    
+
     public IEnumerator EndDayCoroutine()
     {
         yield return new WaitForSeconds(5f);
-        
+
         Time.timeScale = 0;
         endDay.SetActive(true);
         print($"End of day, score was : {_scoreController.score}");
@@ -174,29 +185,29 @@ public class GameManager : MonoBehaviour
             case >= 0 and <= 49:
                 starVersions[0].SetActive(true);
                 break;
-            
+
             case >= 50 and <= 99:
                 starVersions[1].SetActive(true);
                 break;
-            
+
             case >= 100 and <= 149:
                 starVersions[2].SetActive(true);
                 break;
             case >= 150 and <= 199:
                 starVersions[3].SetActive(true);
                 break;
-            
+
             case >= 200 and <= 249:
                 starVersions[4].SetActive(true);
                 break;
-            
+
             case >= 250 and <= 300:
                 starVersions[5].SetActive(true);
                 break;
         }
 
         int index = 0;
-        
+
         foreach (var kvp in birdPhotos)
         {
             foreach (var photo in kvp.Value)
@@ -210,16 +221,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        endDayScoreText.text = _scoreController.score.ToString();
+
+        var quitButton = GameObject.Find("Buttons").transform.Find("QuitButton").gameObject.GetComponent<Button>();
+        quitButton.Select();
     }
-    
-    // private IEnumerator TargetsHintCoroutine()
-    // {
-    //     yield return new WaitForSeconds(2f);
-    //     
-    //     targetHint.SetActive(true);
-    //     
-    //     yield return new WaitForSeconds(10f);
-    //     
-    //     targetHint.SetActive(false);
-    // }
 }
