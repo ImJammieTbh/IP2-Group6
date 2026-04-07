@@ -1,12 +1,31 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
+
+public enum HintType {Controller, Mouse}
+
 
 public class HintManager : MonoBehaviour
 {
-    public GameObject viewHint;
-    public GameObject lookHint;
-    public GameObject zoomHint;
-    public GameObject captureHint;
+    [Header("Controller")] 
+    public GameObject controllerParent;
+    public GameObject viewHintC;
+    public GameObject lookHintC;
+    public GameObject zoomHintC;
+    public GameObject captureHintC;
+    
+    [Header("Mouse")]
+    public GameObject mouseParent;
+    public GameObject viewHintM;
+    public GameObject lookHintM;
+    public GameObject zoomHintM;
+    public GameObject captureHintM;
+
+    private GameObject lookHint;
+    private GameObject captureHint;
+    private GameObject viewHint;
+    private GameObject zoomHint;
 
     public float idleTimerMax;
 
@@ -15,6 +34,9 @@ public class HintManager : MonoBehaviour
 
     private Quaternion _lastPlayerRotation;
     private CameraLag _cameraLag;
+    
+    public HintType hintType;
+    
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
@@ -25,22 +47,53 @@ public class HintManager : MonoBehaviour
 
     private void Update()
     {
-        if (HasRotationBeenIdle())
+        if (Gamepad.current != null && Gamepad.current.wasUpdatedThisFrame)
         {
-            lookHint.SetActive(true);
+            hintType = HintType.Controller;
+            Debug.Log("Using Controller");
         }
-        else
+        else if (Mouse.current.delta.ReadValue() != Vector2.zero)
         {
-            lookHint.SetActive(false);
+            hintType = HintType.Mouse;
+            Debug.Log("Using Mouse");
         }
+
+        switch (hintType)
+        {
+            case HintType.Controller:
+                controllerParent.SetActive(true);
+                mouseParent.SetActive(false);
+                
+                lookHint = lookHintC;
+                viewHint = viewHintC;
+                zoomHint = zoomHintC;
+                captureHint = captureHintC;
+                break;
+            
+            case HintType.Mouse:
+                controllerParent.SetActive(false);
+                mouseParent.SetActive(true);
+                
+                lookHint = lookHintM;
+                viewHint = viewHintM;
+                zoomHint = zoomHintM;
+                captureHint = captureHintM;
+                break;
+        }
+        
+        lookHint.SetActive(HasRotationBeenIdle());
 
         if (!_cameraLag.isAiming)
         {
             viewHint.SetActive(true);
+            captureHint.SetActive(false);
+            zoomHint.SetActive(false);
         }
         else 
         {
             viewHint.SetActive(false);
+            captureHint.SetActive(true);
+            zoomHint.SetActive(true);
         }
     }
 

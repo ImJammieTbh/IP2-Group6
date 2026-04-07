@@ -40,6 +40,7 @@ public class CameraLag : MonoBehaviour
     private bool _rightTriggerDown;
 
     public static event Action<BirdData, BirdController> OnPhotoTaken;
+    public static event Action OnPhotosUsed;
 
     public void Awake()
     {
@@ -182,6 +183,7 @@ public class CameraLag : MonoBehaviour
                     if (pics >= 10f)
                     {
                         maxPicsReached = true;
+                        OnPhotosUsed.Invoke();
                     }
                 }
 

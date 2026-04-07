@@ -45,28 +45,26 @@ namespace bird_system
             lastBird = validBirds[0];
             return validBirds[0];
         }
-
-        public List<BirdData> GetRandomBirdsNoWeight(int numWanted)
+        
+        public BirdData GetRandomBird(bool isNight, BirdData _lastBird)
         {
-            if (birds == null || birds.Count == 0 || numWanted <= 0)
-                return new List<BirdData>();
+            BirdData.Biome excludedBiome = BirdData.Biome.Debugging;
 
-            // If asking for more than available, just return all shuffled
-            if (numWanted >= birds.Count)
-                return birds.OrderBy(x => Random.value).ToList();
+            var validBiomes = System.Enum.GetValues(typeof(BirdData.Biome))
+                .Cast<BirdData.Biome>()
+                .Where(b => b != excludedBiome)
+                .OrderBy(_ => Random.value) // shuffle
+                .ToList();
 
-            // Create a copy so we don’t modify the original list
-            List<BirdData> pool = new List<BirdData>(birds);
-            List<BirdData> result = new List<BirdData>();
-
-            for (int i = 0; i < numWanted; i++)
+            foreach (var biome in validBiomes)
             {
-                int index = Random.Range(0, pool.Count);
-                result.Add(pool[index]);
-                pool.RemoveAt(index); // ensures no duplicates
+                var bird = GetRandomBird(biome, isNight, _lastBird);
+                if (bird != null)
+                    return bird;
             }
 
-            return result;
+            // If literally no biome has valid birds
+            return null;
         }
     }
 }

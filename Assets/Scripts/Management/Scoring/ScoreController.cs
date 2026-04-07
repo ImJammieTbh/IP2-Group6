@@ -53,4 +53,21 @@ public class ScoreController : MonoBehaviour
         
         return (float)Math.Round(scoreOutOf10, 1);
     }
+
+    public void AddScore(bool isTarget, bool isMoving)
+    {
+        score += 10f;
+        
+        if (isTarget)
+        {
+            score += 30f;
+        }
+
+        if (!isMoving)
+        {
+            score += 8f;
+        }
+        
+        print(score);
+    }
 }

@@ -8,6 +8,7 @@ TagManager:
   - FilmCam
   - Shutter
   - targetBirdSlot
+  - Stars
   layers:
   - Default
   - TransparentFX

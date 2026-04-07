@@ -1,9 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using bird_system;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,15 +15,12 @@ public class GameManager : MonoBehaviour
     public PhotoManager photoManager;
 
     public bool birdsCaptured;
-    public int numCorrectPhotos;
-
+    public int targetBirdsCount;
     public List<BirdData> targetBirds;
     private HashSet<BirdData> capturedBirds = new HashSet<BirdData>();
     
-    public TMP_Text scoreText;
-    
     public Dictionary<int, List<PhotoData>> birdPhotos =  new Dictionary<int, List<PhotoData>>();
-    public bool photoReady;
+    private bool photoReady;
     
     private float _tempPhotoScore = 0;
     
@@ -27,26 +28,43 @@ public class GameManager : MonoBehaviour
     private GameObject[] taggedPos;
     public GameObject targetHint;
 
-    private BirdSpawnTable _birdSpawnTable;
+    [SerializeField]private BirdSpawnTable birdSpawnTable;
 
-    public List<BirdData> tempList;
+    // public List<BirdData> tempList;
+    
+    [Header("End of day Config")]
+    public GameObject endDay;
+    public List<GameObject> starVersions;
+    public List<Transform> polaroidPositions;
+    public GameObject polaroidPrefab;
+    public TMP_Text endDayScoreText;
+    
+    private BirdData _lastBird;
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         _scoreController = GetComponent<ScoreController>();
         
         CameraLag.OnPhotoTaken += CheckValidBird;
         PolaroidEjector.OnEjected += PhotoEjectedCall;
         
+        CameraLag.OnPhotosUsed += EndDay;
+        
         taggedPos = GameObject.FindGameObjectsWithTag("targetBirdSlot");
+        
+        for (int index = 0; index < targetBirdsCount; index++)
+        {
+            BirdData data = birdSpawnTable.GetRandomBird(false, _lastBird);
+            targetBirds.Add(data);
+            _lastBird = data;
+        }
         
         Init();
     }
 
     private void Start()
     {
-        StartCoroutine(TargetsHintCoroutine());
+        //StartCoroutine(TargetsHintCoroutine());
     }
 
     private void FixedUpdate()
@@ -60,8 +78,6 @@ public class GameManager : MonoBehaviour
 
     public void Init()
     {
-        tempList = _birdSpawnTable.GetRandomBirdsNoWeight(3);
-        
         foreach (var obj in taggedPos)
         {
             if (!wantedBoardPositions.Contains(obj.transform))
@@ -119,6 +135,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ProcessLatestPhotoCoroutine(BirdData birdData, BirdController birdController)
     {
+        print("Processing PhotoData");
         yield return new WaitUntil(() => photoReady);
         
         PhotoData latestPhoto = photoManager.LatestPhoto;
@@ -127,11 +144,20 @@ public class GameManager : MonoBehaviour
         {
             birdPhotos[birdData.birdID].Add(latestPhoto);
             print($"PhotoData Added: {birdData.birdID}");
+            _scoreController.AddScore(false, birdController.isMoving);
         }
         else
         {
             birdPhotos.Add(birdData.birdID, new List<PhotoData>{latestPhoto});
             print($"New PhotoData Added: {birdData.birdID}");
+            if (targetBirds.Contains(birdData))
+            {
+                _scoreController.AddScore(true, birdController.isMoving);
+            }
+            else
+            {
+                _scoreController.AddScore(false, birdController.isMoving);
+            }
         }
         
         float tempScore = _scoreController.GetPhotoScore(birdController.spriteRenderer);
@@ -140,15 +166,64 @@ public class GameManager : MonoBehaviour
         
         photoReady = false;
     }
-    
-    private IEnumerator TargetsHintCoroutine()
+
+    public void EndDay()
     {
-        yield return new WaitForSeconds(2f);
-        
-        targetHint.SetActive(true);
-        
-        yield return new WaitForSeconds(10f);
-        
-        targetHint.SetActive(false);
+        StartCoroutine(EndDayCoroutine());
+    }
+
+    public IEnumerator EndDayCoroutine()
+    {
+        yield return new WaitForSeconds(5f);
+
+        Time.timeScale = 0;
+        endDay.SetActive(true);
+        print($"End of day, score was : {_scoreController.score}");
+
+        switch (_scoreController.score)
+        {
+            case >= 0 and <= 49:
+                starVersions[0].SetActive(true);
+                break;
+
+            case >= 50 and <= 99:
+                starVersions[1].SetActive(true);
+                break;
+
+            case >= 100 and <= 149:
+                starVersions[2].SetActive(true);
+                break;
+            case >= 150 and <= 199:
+                starVersions[3].SetActive(true);
+                break;
+
+            case >= 200 and <= 249:
+                starVersions[4].SetActive(true);
+                break;
+
+            case >= 250 and <= 300:
+                starVersions[5].SetActive(true);
+                break;
+        }
+
+        int index = 0;
+
+        foreach (var kvp in birdPhotos)
+        {
+            foreach (var photo in kvp.Value)
+            {
+                if (index >= polaroidPositions.Count) break; //safety clause
+                GameObject polaroid = Instantiate(polaroidPrefab, polaroidPositions[index]);
+                var pUI = polaroid.gameObject.GetComponent<PolaroidUI>();
+                pUI.polaroidImage.sprite = photo.PolaroidSprite;
+                pUI.developer.color = new Color(0f, 0f, 0f, 0f);
+                index++;
+            }
+        }
+
+        endDayScoreText.text = _scoreController.score.ToString();
+
+        var quitButton = GameObject.Find("Buttons").transform.Find("QuitButton").gameObject.GetComponent<Button>();
+        quitButton.Select();
     }
 }

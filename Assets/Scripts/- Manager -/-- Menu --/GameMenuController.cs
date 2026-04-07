@@ -272,4 +272,13 @@ public class GameMenuController : MonoBehaviour
         // When the game is built
         Application.Quit();
     }
+    
+    //RESTART LEVEL
+    public void OnRestartClick()
+    {
+        var sceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene("StartOfDay");
+        
+        
+    }
 }
