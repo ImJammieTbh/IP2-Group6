@@ -7,6 +7,9 @@ using TMPro;
 
 public class GameMenuController : MonoBehaviour
 {
+    [Header("UI")]
+    public GameObject crosshair;
+
     [Header("Text")]
     public TMP_Text pauseText;
 
@@ -54,14 +57,21 @@ public class GameMenuController : MonoBehaviour
     public Button backButton;
 
     [Header("Pausing")]
-    bool isPaused = false;
+    public bool isPaused = false;
     public GameObject cameraObject; // disables the camera so it doesn't block the menu
     //stop all audio when paused, source: https://discussions.unity.com/t/how-to-stop-all-audio/32919
-    private AudioSource[] allAudioSources;
 
-  
- 
-   // Setting all assets as inactive
+
+    [Header("SFX")] //for clicking the buttons
+    private AudioSource[] allAudioSources;
+    public BirdEmitter birdSounds;
+    public AudioSource radioMusic; //starts playing once unpaused
+    public float buttonVolume = 0.5f;
+    public AudioSource buttonSoundClips;
+    
+
+
+    // Setting all assets as inactive
     void Start()
     {
         //Background
@@ -102,7 +112,7 @@ public class GameMenuController : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) && isPaused == false)  // pausing
         {
             //AudioListener.volume = 0; // TEMP SOLVER, mute all sounds, because if pause when a sound effect is playing it will play the whole sound
-            StopAllAudio();
+            //StopAllAudio(); 
 
             resumeButton.Select();
 
@@ -117,6 +127,14 @@ public class GameMenuController : MonoBehaviour
             pauseText.gameObject.SetActive(true); // pause text
             pauseButtons.gameObject.SetActive(true); // pause menu buttons
             menuBackground.gameObject.SetActive(true);
+
+            //Audio
+            birdSounds.quackCoolDown = 0;
+            radioMusic.volume = 0.05f; // lower the songs volume
+            //radioMusic.Play();
+
+            //UI
+            crosshair.gameObject.SetActive(false);
         }
         else if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7)) && isPaused == true) //unpausing
         {
@@ -144,6 +162,14 @@ public class GameMenuController : MonoBehaviour
             //Background
             menuBackground.gameObject.SetActive(false);
             settingsBackground.gameObject.SetActive(false);
+
+            //Audio
+            birdSounds.quackCoolDown = 0;
+            radioMusic.volume = 0.25f;
+
+            //UI
+            crosshair.gameObject.SetActive(true);
+
         }
 
         //Volume 
@@ -255,6 +281,14 @@ public class GameMenuController : MonoBehaviour
 
 
         resumeButton.Select(); // selects the resume button when pressing the back button
+    }
+
+
+    //CLICK SOUND
+    public void OnClickSound()
+    {
+        buttonSoundClips.volume = buttonVolume;
+        buttonSoundClips.Play();
     }
 
 

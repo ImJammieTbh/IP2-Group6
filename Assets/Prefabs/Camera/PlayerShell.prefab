@@ -221,6 +221,10 @@ MonoBehaviour:
   maxY: 60
   xRotation: 0
   yRotation: 0
+  shakeActive: 0
+  shakeIntensity: 0.5
+  shakeSpeed: 0.005
+  sensitivitySlider: {fileID: 0}
 --- !u!1 &2753614041168027833
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,6 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CamPos: {fileID: 3134433242587559578}
   Cam: {fileID: 2773050426226896123}
+  PhotoCam: {fileID: 0}
   FilmCam: {fileID: 4814652720200175298}
   rotationLag: 10
   AimSpeed: 10
@@ -311,6 +316,9 @@ MonoBehaviour:
   ViewFinder: {fileID: 0}
   Ejector: {fileID: 954140773573123650}
   maxDistance: 100000000
+  shaker: {fileID: 0}
+  maxZoom: 0
+  minZoom: 0
 --- !u!1 &3317673328995731130
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,12 +611,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c636ca2961d6a4787829f4ae79ecff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewfinderBlackout: {fileID: 0}
+  Shutter: {fileID: 0}
   shutterSound: {fileID: 0}
-  ejectSound: {fileID: 0}
   polaroidPrefab: {fileID: 4741112828082611558, guid: bbe8b22f9810a394bb6ab1ce32d075d4, type: 3}
   uiTransform: {fileID: 0}
-  ejectPoint: {fileID: 7043906471998940044}
   CameraHolder: {fileID: 0}
   capture: {fileID: 5647464774720966212}
   render: {fileID: 3540851383635730518}
@@ -1239,6 +1245,7 @@ MonoBehaviour:
   LatestPhoto:
     Texture: {fileID: 0}
     PolaroidSprite: {fileID: 0}
+    photoScore: 0
 --- !u!1 &8096807189786401188
 GameObject:
   m_ObjectHideFlags: 0
