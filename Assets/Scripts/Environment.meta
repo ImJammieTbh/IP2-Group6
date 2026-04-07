@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/Audio emitters.meta
+guid: a4e78e71ec6748f439e38fd1b996f8cf
+========
 guid: ab48b7cd374020748aefe328332b334b
+>>>>>>>> updated-environment:Assets/Scripts/Environment.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
