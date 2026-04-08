@@ -11,6 +11,8 @@ public class PlayerInteraction : MonoBehaviour
 
     public Transform InteractorSource; // stores ref to the transform which the interaction ray will be cast from
     public float InteractRange; // the range of the interactive raycast
+    
+    public GameObject interactHint;
 
     // Update is called once per frame
     void Update()
@@ -26,6 +28,20 @@ public class PlayerInteraction : MonoBehaviour
                     interactObj.Interact(); //calls the interact function from the object
                 }
             }
+        }
+        
+        Ray ray = new Ray(InteractorSource.position, InteractorSource.forward); //creates a ray infront of the interactor source (camera)
+
+        if (Physics.Raycast(ray, out RaycastHit Checklhitinfo, InteractRange)) // if the raycast detects a collision
+        {
+            if (Checklhitinfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
+            {
+                interactHint.SetActive(true);
+            }
+        }
+        else
+        {
+            interactHint.SetActive(false);
         }
     }
 }

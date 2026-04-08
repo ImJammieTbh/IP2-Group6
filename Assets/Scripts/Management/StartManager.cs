@@ -27,7 +27,7 @@ public class StartManager : MonoBehaviour
 
     private void Update()
     {
-        if (interact.triggered)
+        if (interact.triggered || Input.GetKeyDown(KeyCode.Space))
         {
             NextSection();
         }

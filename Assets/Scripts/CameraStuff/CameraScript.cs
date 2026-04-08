@@ -1,11 +1,6 @@
 using System;
-using Unity.VisualScripting;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 
 public class CameraLag : MonoBehaviour
 {
@@ -22,6 +17,7 @@ public class CameraLag : MonoBehaviour
     private Transform Current;
     private Transform Target;
     public GameObject ViewFinder; //this can be linked to ui or whatever else, artists pretty please make a nice viewfinder thank you.
+    public GameObject UIcrosshair;
     public PolaroidEjector Ejector; //it ejects.
     public float maxDistance;
 
@@ -82,11 +78,13 @@ public class CameraLag : MonoBehaviour
         {
             FilmCam.gameObject.SetActive(false);
             ViewFinder.SetActive(true);
+            UIcrosshair.SetActive(false);
         }
         else
         {
             FilmCam.gameObject.SetActive(true);
             ViewFinder.SetActive(false);
+            UIcrosshair.SetActive(true);
         }
 
         transform.rotation = Quaternion.Slerp // smoothly rotate toward the Closed rotation.

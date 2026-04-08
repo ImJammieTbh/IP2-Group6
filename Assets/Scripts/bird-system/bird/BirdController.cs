@@ -30,11 +30,15 @@ public class BirdController : MonoBehaviour
     private BirdSpawn.YConstrains _yConstrains;
     public List<LandingSpotGroup> landingGroups = new List<LandingSpotGroup>();
 
+    private GameObject player;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         _brain = GetComponent<BirdBrain>();
+        
+        player = GameObject.FindWithTag("Player");
     }
 
     public void Initialize(BirdData data, BirdSpawn.YConstrains yConstrains)
@@ -52,6 +56,12 @@ public class BirdController : MonoBehaviour
         StartCoroutine(BirdLife());
     }
 
+    private void Update()
+    {
+        transform.LookAt(player.transform);
+        
+    }
+
     public void DespawnBird()
     {
         Destroy(gameObject);
@@ -61,12 +71,12 @@ public class BirdController : MonoBehaviour
     {
         switch (xPos)
         {
-            case < 0:
+            case > 0:
                 spriteRenderer.flipX = false;
                 _spawnedLeft = true;
                 break;
             
-            case > 0:
+            case < 0:
                 spriteRenderer.flipX = true;
                 _spawnedLeft = false;
                 break;
