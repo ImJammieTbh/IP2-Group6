@@ -310,9 +310,7 @@ public class GameMenuController : MonoBehaviour
     //RESTART LEVEL
     public void OnRestartClick()
     {
-        var sceneName = SceneManager.GetActiveScene().name;
+        Time.timeScale = 1;
         SceneManager.LoadScene("StartOfDay");
-        
-        
     }
 }

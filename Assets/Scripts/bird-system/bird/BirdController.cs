@@ -58,7 +58,7 @@ public class BirdController : MonoBehaviour
 
     private void Update()
     {
-        transform.LookAt(player.transform);
+        
         
     }
 
@@ -71,12 +71,12 @@ public class BirdController : MonoBehaviour
     {
         switch (xPos)
         {
-            case > 0:
+            case < 0:
                 spriteRenderer.flipX = false;
                 _spawnedLeft = true;
                 break;
             
-            case < 0:
+            case > 0:
                 spriteRenderer.flipX = true;
                 _spawnedLeft = false;
                 break;

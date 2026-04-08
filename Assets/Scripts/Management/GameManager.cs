@@ -187,6 +187,8 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
 
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0;
         endDay.SetActive(true);
         print($"End of day, score was : {_scoreController.score}");

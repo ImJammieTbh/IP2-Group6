@@ -69,6 +69,9 @@ public class CameraLag : MonoBehaviour
         Current = Resting;
         Target = Aiming;
         maxPicsReached = false;
+        
+        Cam.fieldOfView = 80f;
+        CurrentFOV = 80f;
     }
     public void LateUpdate()
     {
