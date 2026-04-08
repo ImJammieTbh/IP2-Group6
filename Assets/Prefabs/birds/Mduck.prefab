@@ -146,6 +146,7 @@ MonoBehaviour:
   _hasLanded: 0
   leftSpawn: {x: 0, y: 0, z: 0}
   rightSpawn: {x: 0, y: 0, z: 0}
+  birdData: {fileID: 0}
   landingGroups: []
 --- !u!114 &914773004864867708
 MonoBehaviour:

@@ -72,13 +72,6 @@ public class GameManager : MonoBehaviour
 
     public void Init()
     {
-        // for (int index = 0; index < targetBirdsCount; index++)
-        // {
-        //     BirdData data = birdSpawnTable.GetRandomBird(false, _lastBird);
-        //     targetBirds.Add(data);
-        //     _lastBird = data;
-        // }
-        
         for (int index = 0; index < targetBirdsCount; index++)
         {
             BirdData data;
