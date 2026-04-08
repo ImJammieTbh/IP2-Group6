@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class Radio : MonoBehaviour, IInteractable
 {
     float currentVolume; //store the volume before music is muted
-    bool isOn = true; //check if interacting with the radio when it is on or not
+    public bool isOn = true; //check if interacting with the radio when it is on or not
     public Slider musicVolume;
 
     public void Interact()
@@ -24,6 +24,15 @@ public class Radio : MonoBehaviour, IInteractable
 
             isOn = true;
         }
+
+        //if (musicVolume.value <= 0.0001f)
+        //{
+        //    isOn = false;
+        //}
+        //else if (musicVolume.value >= 0.0001f)
+        //{
+        //    isOn = true;
+        //}
     }
 }
 
