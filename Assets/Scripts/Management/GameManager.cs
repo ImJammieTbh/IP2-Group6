@@ -52,19 +52,13 @@ public class GameManager : MonoBehaviour
         
         taggedPos = GameObject.FindGameObjectsWithTag("targetBirdSlot");
         
-        for (int index = 0; index < targetBirdsCount; index++)
-        {
-            BirdData data = birdSpawnTable.GetRandomBird(false, _lastBird);
-            targetBirds.Add(data);
-            _lastBird = data;
-        }
-        
         Init();
     }
 
     private void Start()
     {
-        //StartCoroutine(TargetsHintCoroutine());
+        
+        StartCoroutine(TargetsHintCoroutine());
     }
 
     private void FixedUpdate()
@@ -78,6 +72,27 @@ public class GameManager : MonoBehaviour
 
     public void Init()
     {
+        // for (int index = 0; index < targetBirdsCount; index++)
+        // {
+        //     BirdData data = birdSpawnTable.GetRandomBird(false, _lastBird);
+        //     targetBirds.Add(data);
+        //     _lastBird = data;
+        // }
+        
+        for (int index = 0; index < targetBirdsCount; index++)
+        {
+            BirdData data;
+
+            do
+            {
+                data = birdSpawnTable.GetRandomBird(false, _lastBird);
+            }
+            while (targetBirds.Contains(data)); // prevent duplicates
+
+            targetBirds.Add(data);
+            _lastBird = data;
+        }
+        
         foreach (var obj in taggedPos)
         {
             if (!wantedBoardPositions.Contains(obj.transform))
@@ -96,6 +111,9 @@ public class GameManager : MonoBehaviour
             var box = displayBird.GetComponent<BoxCollider>();
 
             bc.enabled = bb.enabled = anim.enabled = box.enabled = false;
+            
+            var sr = displayBird.GetComponent<SpriteRenderer>();
+            sr.sortingOrder = 5;
             
             switch (targetBirds[i].birdSize)//adjust scale per size of bird
             {
@@ -225,5 +243,16 @@ public class GameManager : MonoBehaviour
 
         var quitButton = GameObject.Find("Buttons").transform.Find("QuitButton").gameObject.GetComponent<Button>();
         quitButton.Select();
+    }
+    
+    private IEnumerator TargetsHintCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        
+        targetHint.SetActive(true);
+        
+        yield return new WaitForSeconds(10f);
+        
+        targetHint.SetActive(false);
     }
 }

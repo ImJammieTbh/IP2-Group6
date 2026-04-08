@@ -50,12 +50,12 @@ public class HintManager : MonoBehaviour
         if (Gamepad.current != null && Gamepad.current.wasUpdatedThisFrame)
         {
             hintType = HintType.Controller;
-            Debug.Log("Using Controller");
+            //Debug.Log("Using Controller");
         }
         else if (Mouse.current.delta.ReadValue() != Vector2.zero)
         {
             hintType = HintType.Mouse;
-            Debug.Log("Using Mouse");
+            //Debug.Log("Using Mouse");
         }
 
         switch (hintType)
