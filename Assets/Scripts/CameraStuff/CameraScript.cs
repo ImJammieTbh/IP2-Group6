@@ -146,7 +146,7 @@ public class CameraLag : MonoBehaviour
             {
                 TargetFOV = minZoom; // this is if savedFOV is somehow not within its constraints, for example when you first boot up the game at the moment. but it also helps prevent any weird glitches if they happen ig.
             }
-            shaker.shakeActive = true;
+            //shaker.shakeActive = true;
         }
 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
@@ -179,12 +179,14 @@ public class CameraLag : MonoBehaviour
         {
             SavedFOV = CurrentFOV;
             print("saved FOV is" + SavedFOV);
-            shaker.shakeActive = false;
+            //shaker.shakeActive = false;
         }
     }
 
     public void Update()
     {
+        shaker.shakeActive = isAiming;
+        
         // SHOOTING STUFF!!!!!!!!!!!
 
         FramesLeft = (10f - pics);

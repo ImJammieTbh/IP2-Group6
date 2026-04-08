@@ -253,6 +253,18 @@ PrefabInstance:
       value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7763699256336154198, guid: bd86024feb0f55240a36890dad8fca01, type: 3}
+      propertyPath: shakeSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763699256336154198, guid: bd86024feb0f55240a36890dad8fca01, type: 3}
+      propertyPath: shakeActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763699256336154198, guid: bd86024feb0f55240a36890dad8fca01, type: 3}
+      propertyPath: shakeIntensity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7763699256336154198, guid: bd86024feb0f55240a36890dad8fca01, type: 3}
       propertyPath: sensitivitySlider
       value: 
       objectReference: {fileID: 422762640}
