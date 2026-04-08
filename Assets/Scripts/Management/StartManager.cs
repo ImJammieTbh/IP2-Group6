@@ -15,7 +15,7 @@ public class StartManager : MonoBehaviour
 
     private IEnumerator EnableInteract()
     {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(0.5f);
         
         interact.Enable();
     }
