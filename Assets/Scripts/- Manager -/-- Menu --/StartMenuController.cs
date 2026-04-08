@@ -11,7 +11,7 @@ public class StartMenuController : MonoBehaviour
     // Tutorial referenced: https://youtu.be/Hn804Wgr3KE?si=_mwzCvpTF7qrhE33
 
     [Header("Text")]
-    public TMP_Text gameTitle;
+    public GameObject gameTitle;
 
     // settings
     public TMP_Text fovValue;
@@ -38,6 +38,7 @@ public class StartMenuController : MonoBehaviour
     public GameObject settings; // All the misc settings UI elements
     public Slider fovSlider;
     public Slider sensitivitySlider;
+    public GameObject settingsBackground;
 
 
     //CONTROLS if add key bindings or controller manual in start manual
@@ -61,7 +62,9 @@ public class StartMenuController : MonoBehaviour
     public static float sensitivityVal = 50;
     public static float fovVal = 1;
 
-
+    [Header("SFX")] //for clicking the buttons
+    public float buttonVolume = 0.5f;
+    public AudioSource buttonSoundClips;
 
     // Sets all the setting UI elements as inactive (hidden)
     void Start()
@@ -71,6 +74,7 @@ public class StartMenuController : MonoBehaviour
 
         //Settings
         settings.gameObject.SetActive(false);
+        settingsBackground.gameObject.SetActive(false);
 
         //Buttons
         backButton.gameObject.SetActive(false);
@@ -125,6 +129,7 @@ public class StartMenuController : MonoBehaviour
 
         //Settings
         settings.gameObject.SetActive(true);
+        settingsBackground.gameObject.SetActive(true);
 
         //Buttons
         backButton.gameObject.SetActive(true);
@@ -149,6 +154,7 @@ public class StartMenuController : MonoBehaviour
 
         //Settings
         settings.gameObject.SetActive(false);
+        settingsBackground.gameObject.SetActive(false);
 
         //Buttons
         backButton.gameObject.SetActive(false);
@@ -160,6 +166,16 @@ public class StartMenuController : MonoBehaviour
 
         startButton.Select(); // selects the start button when pressing the back button
     }
+
+
+    //CLICK SOUND
+    public void OnClickSound()
+    {
+        buttonSoundClips.volume = buttonVolume;
+        buttonSoundClips.Play();
+    }
+
+
 
 
     //QUITE GAME
