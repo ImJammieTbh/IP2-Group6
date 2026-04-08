@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 interface IInteractable // just add IInteractable next to MonoBehaviour (like this: MonoBehaviour, IInteractable)
 {
@@ -13,11 +15,12 @@ public class PlayerInteraction : MonoBehaviour
     public float InteractRange; // the range of the interactive raycast
     
     public GameObject interactHint;
+    public InputAction interact;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) || interact.triggered)
         {
             Ray r = new Ray(InteractorSource.position, InteractorSource.forward); //creates a ray infront of the interactor source (camera)
 
@@ -43,5 +46,10 @@ public class PlayerInteraction : MonoBehaviour
         {
             interactHint.SetActive(false);
         }
+    }
+
+    private void Awake()
+    {
+        interact.Enable();
     }
 }

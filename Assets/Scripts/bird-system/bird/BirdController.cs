@@ -31,6 +31,7 @@ public class BirdController : MonoBehaviour
     public List<LandingSpotGroup> landingGroups = new List<LandingSpotGroup>();
 
     private GameObject player;
+    private float yRot;
 
     private void Awake()
     {
@@ -58,8 +59,9 @@ public class BirdController : MonoBehaviour
 
     private void Update()
     {
-        
-        
+        yRot = this.transform.rotation.eulerAngles.y;
+        yRot = player.transform.rotation.eulerAngles.y;
+        this.transform.eulerAngles = new Vector3(0, yRot, 0);
     }
 
     public void DespawnBird()

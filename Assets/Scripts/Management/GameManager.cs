@@ -238,6 +238,10 @@ public class GameManager : MonoBehaviour
 
         var quitButton = GameObject.Find("Buttons").transform.Find("QuitButton").gameObject.GetComponent<Button>();
         quitButton.Select();
+        
+        CameraLag.OnPhotoTaken -= CheckValidBird;
+        PolaroidEjector.OnEjected -= PhotoEjectedCall;
+        CameraLag.OnPhotosUsed -= EndDay;
     }
     
     private IEnumerator TargetsHintCoroutine()
